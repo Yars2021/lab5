@@ -29,13 +29,13 @@ public enum Color {
      * @return String with all possible values
      */
     public static String getValues() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (Color color : Color.values()) {
             if (color != Color.UNDEFINED) {
-                s += (color.toString() + " ");
+                s.append(color.toString()).append(" ");
             }
         }
-        s = s.trim();
-        return s;
+        s = new StringBuilder(s.toString().trim());
+        return s.toString();
     }
 }
