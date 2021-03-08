@@ -11,19 +11,35 @@ import ru.itmo.p3114.s312198.util.StudyGroupBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+/**
+ * Adds a new element to the collection, but only if it`s the greatest
+ */
 public class AddIfMax extends AbstractCommand {
     private final LinkedHashSet<StudyGroup> studyGroups;
 
+    /**
+     * Creates a new instance of AddIfMax command
+     * @param studyGroups The collection, it`s working with
+     */
     public AddIfMax(LinkedHashSet<StudyGroup> studyGroups) {
         setCommand("add_if_max");
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Creates a new instance of AddIfMax command
+     * @param arguments Arguments
+     * @param studyGroups The collection, it`s working with
+     */
     public AddIfMax(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("add_if_max", arguments);
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Executes the AddIfMax command
+     * @return Status (OK, FAILED if the element already exists or there are values out of bounds, INCORRECT_ARGUMENTS)
+     */
     @Override
     public Status execute() {
         if (getArguments() == null || (arguments.size() != 12 && arguments.size() != 10 && arguments.size() != 6)) {

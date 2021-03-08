@@ -11,19 +11,35 @@ import ru.itmo.p3114.s312198.util.StudyGroupBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+/**
+ * Removes all the elements, greater than current
+ */
 public class RemoveGreater extends AbstractCommand {
     private final LinkedHashSet<StudyGroup> studyGroups;
 
+    /**
+     * Creates an instance of RemoveGreater command
+     * @param studyGroups The collection it`s working with
+     */
     public RemoveGreater(LinkedHashSet<StudyGroup> studyGroups) {
         setCommand("remove_greater");
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Creates an instance of RemoveGreater command
+     * @param arguments Arguments
+     * @param studyGroups The collection it`s working with
+     */
     public RemoveGreater(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("remove_greater", arguments);
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Executes the RemoveGreater command
+     * @return Status
+     */
     @Override
     public Status execute() {
         if (getArguments() == null || (arguments.size() != 12 && arguments.size() != 10 && arguments.size() != 6)) {

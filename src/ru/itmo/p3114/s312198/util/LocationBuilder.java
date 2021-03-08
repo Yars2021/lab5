@@ -2,6 +2,9 @@ package ru.itmo.p3114.s312198.util;
 
 import ru.itmo.p3114.s312198.collection.Location;
 
+/**
+ * Helps creating a new instance of Location
+ */
 public class LocationBuilder {
     private final Location location;
 
@@ -24,6 +27,9 @@ public class LocationBuilder {
         return this;
     }
 
+    /**
+     * @return A new Location
+     */
     public Location toLocation() {
         return location;
     }

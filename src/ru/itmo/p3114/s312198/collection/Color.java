@@ -2,11 +2,11 @@ package ru.itmo.p3114.s312198.collection;
 
 /**
  * Color enum. Supported values:
- *      UNDEFINED
- *      BLACK
- *      BROWN
- *      RED
- *      WHITE
+ *     UNDEFINED,
+ *     BLACK,
+ *     BROWN,
+ *     RED,
+ *     WHITE;
  */
 public enum Color {
     UNDEFINED,

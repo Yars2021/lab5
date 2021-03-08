@@ -45,14 +45,27 @@ import java.util.Locale;
 // 10: LocationX, LocationY, LocationZ
 // 11: LocationName
 
+/**
+ * Processes the user`s input and calls commands
+ */
 public class CommandLineProcessor {
     private final LinkedHashSet<StudyGroup> studyGroups;
     private final LinkedList<AbstractCommand> history = new LinkedList<>();
 
+    /**
+     * Creates a new Command line processor and tells it the collection, it`s going to work with
+     * @param collection Collection
+     */
     public CommandLineProcessor(LinkedHashSet<StudyGroup> collection) {
         studyGroups = collection;
     }
 
+    /**
+     * Parses a String, splits it into command name and arguments, creates and executes the command
+     * @param line Input
+     * @param suppressOutput Will not print anything if set to true
+     * @return Last used command
+     */
     public AbstractCommand parseInput(String line, boolean suppressOutput) {
         ArrayList<String> arguments;
         Commands command;
@@ -197,6 +210,12 @@ public class CommandLineProcessor {
         return currentCommand;
     }
 
+    /**
+     * Parses a String, splits it into command name and arguments, creates and executes the command,
+     * @param lines Lines of the file
+     * @param index The index of current line
+     * @return Last used command
+     */
     public AbstractCommand parseFileInput(List<String> lines, int index) {
         ArrayList<String> arguments;
         Commands command;
@@ -352,6 +371,11 @@ public class CommandLineProcessor {
         return currentCommand;
     }
 
+    /**
+     * Requests StudyGroup field values from the user and validates them
+     * @param suppressOutput Will not print anything if set to true
+     * @return ArrayList of values
+     */
     private ArrayList<String> requestElement(boolean suppressOutput) {
         ArrayList<String> args = new ArrayList<>();
         String input;
@@ -525,6 +549,13 @@ public class CommandLineProcessor {
         return args;
     }
 
+    /**
+     * Reads StudyGroup field values and validates them
+     * @param lines The lines, read from file
+     * @param index Current index
+     * @return ArrayList of values
+     * @throws Exception Can be thrown, if the index is out of bounds
+     */
     private ArrayList<String> readElement(List<String> lines, int index) throws Exception {
         ArrayList<String> args = new ArrayList<>();
         String input;

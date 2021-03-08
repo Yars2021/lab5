@@ -5,19 +5,35 @@ import ru.itmo.p3114.s312198.collection.StudyGroup;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+/**
+ * Shows all the elements of the collection
+ */
 public class Show extends AbstractCommand {
     private final LinkedHashSet<StudyGroup> studyGroups;
 
+    /**
+     * Creates an new instance of Shpw command
+     * @param studyGroups The collection it`s working with
+     */
     public Show(LinkedHashSet<StudyGroup> studyGroups) {
         setCommand("show");
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Creates an new instance of Shpw command
+     * @param arguments Arguments
+     * @param studyGroups The collection it`s working with
+     */
     public Show(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("show", arguments);
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Executes the Show command
+     * @return Status
+     */
     @Override
     public Status execute() {
         if (getArguments() != null) {

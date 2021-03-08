@@ -11,19 +11,35 @@ import ru.itmo.p3114.s312198.util.StudyGroupBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+/**
+ * Adds a new element to the collection
+ */
 public class Add extends AbstractCommand {
     private final LinkedHashSet<StudyGroup> studyGroups;
 
+    /**
+     * Creates a new instance of Add command
+     * @param studyGroups The collection, it`s working with
+     */
     public Add(LinkedHashSet<StudyGroup> studyGroups) {
         setCommand("add");
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Creates a new instance of Add command
+     * @param arguments Arguments
+     * @param studyGroups The collection, it`s working with
+     */
     public Add(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("add", arguments);
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Executes the Add command
+     * @return Status (OK, FAILED if the element already exists or there are values out of bounds, INCORRECT_ARGUMENTS)
+     */
     @Override
     public Status execute() {
         if (getArguments() == null || (arguments.size() != 12 && arguments.size() != 10 && arguments.size() != 6)) {

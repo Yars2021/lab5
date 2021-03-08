@@ -12,20 +12,35 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+/**
+ * Executes a script of these commands
+ */
 public class ExecuteScript extends AbstractCommand {
     private final LinkedHashSet<StudyGroup> studyGroups;
 
+    /**
+     * Creates a new instance of ExecuteScript command
+     * @param studyGroups The collection, it`s working with
+     */
     public ExecuteScript(LinkedHashSet<StudyGroup> studyGroups) {
         setCommand("execute_script");
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Creates a new instance of ExecuteScript command
+     * @param arguments Arguments
+     * @param studyGroups The collection, it`s working with
+     */
     public ExecuteScript(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
-
         super("execute_script", arguments);
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Executes the ExecuteScriptCommand
+     * @return Status (OK, FAILED if there is a risk of stack overflow, INCORRECT_ARGUMENTS)
+     */
     @Override
     public Status execute() {
         if (getArguments() == null || getArguments().size() != 1) {

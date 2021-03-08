@@ -9,19 +9,35 @@ import ru.itmo.p3114.s312198.util.FieldParser;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+/**
+ * Updates an element by ID
+ */
 public class Update extends AbstractCommand {
     private final LinkedHashSet<StudyGroup> studyGroups;
 
+    /**
+     * Creates an instance of Update command
+     * @param studyGroups The collection it`s working with
+     */
     public Update(LinkedHashSet<StudyGroup> studyGroups) {
         setCommand("update");
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Creates an instance of Update command
+     * @param arguments Arguments
+     * @param studyGroups The collection it`s working with
+     */
     public Update(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("update", arguments);
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Executes the Update command
+     * @return Status (OK, FAILED if there is no element with such ID or some field values are out of bounds, INCORRECT_ARGUMENTS)
+     */
     @Override
     public Status execute() {
         if (getArguments() == null || (arguments.size() != 13 && arguments.size() != 11 && arguments.size() != 7)) {

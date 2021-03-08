@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 
 /**
    File Reader - reads {@link StudyGroup} set from CSV file
-
  */
 public class DataFileReader {
     Pattern pattern = Pattern.compile("(\\w+?),(-?\\d+?),(-?\\d+?\\.\\d+?),(\\d{4}-\\d{2}-\\d{2}),(\\d+?),(\\d+?),(\\d+?),(\\w+?),(\\w+?)," +
@@ -56,6 +55,11 @@ public class DataFileReader {
         }
     }
 
+    /**
+     * Reads data from a text file (filename)
+     * @param filename File name
+     * @return A collection of StudyGroups
+     */
     public LinkedHashSet<StudyGroup> getData(String filename) {
         LinkedHashSet<StudyGroup> studyGroups = new LinkedHashSet<>();
 

@@ -6,6 +6,9 @@ import ru.itmo.p3114.s312198.collection.Location;
 import ru.itmo.p3114.s312198.collection.Person;
 import ru.itmo.p3114.s312198.exception.ValueOutOfBoundsException;
 
+/**
+ * Helps creation a new instance of Person
+ */
 public class PersonBuilder {
     private final Person person;
 
@@ -55,6 +58,9 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * @return A new Person
+     */
     public Person toPerson() {
         return person;
     }

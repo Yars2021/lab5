@@ -5,19 +5,35 @@ import ru.itmo.p3114.s312198.collection.StudyGroup;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+/**
+ * Shows some information about the collection
+ */
 public class Info extends AbstractCommand {
     private final LinkedHashSet<StudyGroup> studyGroups;
 
+    /**
+     * Creates a new instance of Info command
+     * @param studyGroups The collection, it`s going to work with
+     */
     public Info(LinkedHashSet<StudyGroup> studyGroups) {
         setCommand("info");
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Creates a new instance of Info command
+     * @param arguments Arguments
+     * @param studyGroups The collection, it`s going to work with
+     */
     public Info(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("info", arguments);
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Executes the Info command
+     * @return Status
+     */
     @Override
     public Status execute() {
         if (getArguments() != null) {

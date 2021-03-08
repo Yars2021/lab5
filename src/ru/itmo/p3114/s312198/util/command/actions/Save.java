@@ -7,19 +7,35 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+/**
+ * Saves the collection
+ */
 public class Save extends AbstractCommand {
     private final LinkedHashSet<StudyGroup> studyGroups;
 
+    /**
+     * Creates an instance of Save command
+     * @param studyGroups The collection it`s working with
+     */
     public Save(LinkedHashSet<StudyGroup> studyGroups) {
         setCommand("save");
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Creates an instance of Save command
+     * @param arguments Arguments
+     * @param studyGroups The collection it`s working with
+     */
     public Save(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("save", arguments);
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Executes the Save command
+     * @return Status
+     */
     @Override
     public Status execute() {
         if (getArguments() == null || getArguments().size() != 1) {

@@ -8,6 +8,9 @@ import ru.itmo.p3114.s312198.exception.ValueOutOfBoundsException;
 
 import java.time.LocalDate;
 
+/**
+ * Helps creating a new instance of StudyGroup
+ */
 public class StudyGroupBuilder {
     private final StudyGroup studyGroup;
 
@@ -101,6 +104,9 @@ public class StudyGroupBuilder {
         return this;
     }
 
+    /**
+     * @return A new StudyGroup
+     */
     public StudyGroup toStudyGroup() {
         return studyGroup;
     }

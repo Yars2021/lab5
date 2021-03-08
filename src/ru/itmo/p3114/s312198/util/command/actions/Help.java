@@ -2,15 +2,29 @@ package ru.itmo.p3114.s312198.util.command.actions;
 
 import java.util.ArrayList;
 
+/**
+ * Prints command reference
+ */
 public class Help extends AbstractCommand {
+    /**
+     * Creates a new instance of Help command
+     */
     public Help() {
         setCommand("help");
     }
 
+    /**
+     * Creates a new instance of Help command
+     * @param arguments Arguments
+     */
     public Help(ArrayList<String> arguments) {
         super("help", arguments);
     }
 
+    /**
+     * Executes the Help command
+     * @return Status
+     */
     @Override
     public Status execute() {
         if (getArguments() != null) {

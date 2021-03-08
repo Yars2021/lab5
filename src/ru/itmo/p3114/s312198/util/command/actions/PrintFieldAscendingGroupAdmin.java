@@ -8,19 +8,35 @@ import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 
+/**
+ * Prints all the group admins sorted from the smallest to the biggest value
+ */
 public class PrintFieldAscendingGroupAdmin extends AbstractCommand {
     private final LinkedHashSet<StudyGroup> studyGroups;
 
+    /**
+     * Creates an instance of PrintFieldAscendingGroupAdmin command
+     * @param studyGroups The collection, it`s working with
+     */
     public PrintFieldAscendingGroupAdmin(LinkedHashSet<StudyGroup> studyGroups) {
         setCommand("print_field_ascending_group_admin");
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Creates an instance of PrintFieldAscendingGroupAdmin command
+     * @param arguments Arguments
+     * @param studyGroups The collection, it`s working with
+     */
     public PrintFieldAscendingGroupAdmin(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("print_field_ascending_group_admin", arguments);
         this.studyGroups = studyGroups;
     }
 
+    /**
+     * Executes the PrintFieldAscendingGroupAdmin command
+     * @return Status
+     */
     @Override
     public Status execute() {
         if (getArguments() != null) {
