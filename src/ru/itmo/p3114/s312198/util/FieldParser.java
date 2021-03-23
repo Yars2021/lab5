@@ -39,12 +39,16 @@ public class FieldParser {
         if (components.length != 2) {
             return null;
         } else {
-            long x = Long.parseLong(components[0]);
-            double y = Double.parseDouble(components[1]);
-            if (y > 426) {
+            try {
+                long x = Long.parseLong(components[0]);
+                double y = Double.parseDouble(components[1]);
+                if (y > 426) {
+                    return null;
+                } else {
+                    return new Coordinates(x, y);
+                }
+            } catch (NumberFormatException nfe) {
                 return null;
-            } else {
-                return new Coordinates(x, y);
             }
         }
     }

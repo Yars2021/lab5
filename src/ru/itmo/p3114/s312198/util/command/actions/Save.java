@@ -44,10 +44,9 @@ public class Save extends AbstractCommand {
         } else {
             DataFileWriter writer = new DataFileWriter();
 
-            try {
-                writer.write(arguments.get(0).trim(), studyGroups);
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
+            boolean state = writer.safeWrite(arguments.get(0).trim(), studyGroups);
+
+            if (!state) {
                 status = Status.FAILED;
                 return Status.FAILED;
             }

@@ -31,6 +31,7 @@ public class Exit extends AbstractCommand {
             status = Status.INCORRECT_ARGUMENTS;
             return Status.INCORRECT_ARGUMENTS;
         } else {
+            System.out.println("Process finished");
             System.exit(0);
             status = Status.OK;
             return Status.OK;

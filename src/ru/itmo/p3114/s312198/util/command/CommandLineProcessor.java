@@ -71,9 +71,14 @@ public class CommandLineProcessor {
         Commands command;
 
         try {
-            command = Commands.valueOf(line.toUpperCase(Locale.ROOT).split("\\s")[0]);
+            if (line == null) {
+                command = Commands.EXIT;
+            } else {
+                command = Commands.valueOf(line.trim().toUpperCase(Locale.ROOT).split("\\s")[0]);
+            }
         } catch (IllegalArgumentException iae) {
             System.out.println("Unknown command: " + line.split("\\s")[0]);
+            System.out.println("Use \"help\" to see the command reference");
             return null;
         }
 
@@ -382,7 +387,7 @@ public class CommandLineProcessor {
         boolean wrong = true;
 
         if (!suppressOutput) {
-            System.out.print("Enter the name of a new group: ");
+            System.out.print("Enter the name of a new group (String value): ");
         }
         while (FieldParser.parseName(input = ConsoleReader.readLine()) == null) {
             if (!suppressOutput) {
@@ -393,7 +398,7 @@ public class CommandLineProcessor {
         args.add(input);
 
         if (!suppressOutput) {
-            System.out.print("Enter the coordinates (x y): ");
+            System.out.print("Enter the coordinates (x y; x is Integer and y is Double <= 426): ");
         }
         while (FieldParser.parseCoordinates(input = ConsoleReader.readLine()) == null) {
             if (!suppressOutput) {
@@ -404,7 +409,7 @@ public class CommandLineProcessor {
         args.add(input);
 
         if (!suppressOutput) {
-            System.out.print("Enter students count: ");
+            System.out.print("Enter students count (Integer value): ");
         }
         while (FieldParser.parseStudentsCount(input = ConsoleReader.readLine()) == null) {
             if (!suppressOutput) {
@@ -415,7 +420,7 @@ public class CommandLineProcessor {
         args.add(input);
 
         if (!suppressOutput) {
-            System.out.print("Enter the number of students that should be expelled: ");
+            System.out.print("Enter the number of students that should be expelled (Integer value): ");
         }
         while (wrong) {
             try {
@@ -433,7 +438,7 @@ public class CommandLineProcessor {
         wrong = true;
 
         if (!suppressOutput) {
-            System.out.print("Enter the number of transferred students: ");
+            System.out.print("Enter the number of transferred students (Integer value): ");
         }
         while (wrong) {
             try {
@@ -468,7 +473,7 @@ public class CommandLineProcessor {
             return args;
         } else {
             if (!suppressOutput) {
-                System.out.print("Enter the group admin`s name: ");
+                System.out.print("Enter the group admin`s name (String value): ");
             }
             while (FieldParser.parseName(input = ConsoleReader.readLine()) == null) {
                 if (!suppressOutput) {
@@ -481,7 +486,7 @@ public class CommandLineProcessor {
             wrong = true;
 
             if (!suppressOutput) {
-                System.out.print("Enter the group admin`s height: ");
+                System.out.print("Enter the group admin`s height (Positive Long value): ");
             }
             while (wrong) {
                 try {
@@ -524,7 +529,7 @@ public class CommandLineProcessor {
                 return args;
             } else {
                 if (!suppressOutput) {
-                    System.out.print("Enter the group admin`s location coordinates: ");
+                    System.out.print("Enter the group admin`s location coordinates (x y z; 3 Float values divided by space): ");
                 }
                 while (FieldParser.parseLocationCoords(input = ConsoleReader.readLine()) == null) {
                     if (!suppressOutput) {
@@ -535,7 +540,7 @@ public class CommandLineProcessor {
                 args.add(input);
 
                 if (!suppressOutput) {
-                    System.out.print("Enter the group admin`s location name: ");
+                    System.out.print("Enter the group admin`s location name (String value): ");
                 }
                 while (FieldParser.parseName(input = ConsoleReader.readLine()) == null) {
                     if (!suppressOutput) {

@@ -1,5 +1,6 @@
 package ru.itmo.p3114.s312198.collection;
 
+import ru.itmo.p3114.s312198.exception.IncorrectLineFormat;
 import ru.itmo.p3114.s312198.util.IdGenerator;
 
 import java.time.LocalDate;
@@ -8,7 +9,7 @@ import java.time.LocalDate;
  * Study group class
  */
 public class StudyGroup implements Comparable<StudyGroup> {
-    private final long id = IdGenerator.getNextId(); //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private long id = IdGenerator.getNextId(); //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
     private java.time.LocalDate creationDate = LocalDate.now(); //Поле не может быть null, Значение этого поля должно генерироваться автоматически
@@ -191,7 +192,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
                 (groupAdmin.getLocation() == null ? "-" :
                 "\n\t\t\tCoordinates: (" + groupAdmin.getLocation().getX() + "; " +
                 groupAdmin.getLocation().getY() + "; " + groupAdmin.getLocation().getZ() + ")" +
-                "\n\t\t\tName: " + (groupAdmin.getLocation().getName() == null ? "-" : groupAdmin.getLocation().getName())));
+                "\n\t\t\tName: " + (groupAdmin.getLocation().getName() == null ? "-" : groupAdmin.getLocation().getName()))) + "\n";
     }
 
     /**
@@ -213,7 +214,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
                 String.format("%02d", creationDate.getDayOfMonth()) +
                 "," + studentsCount + "," + shouldBeExpelled + "," + transferredStudents + "," +
                 formOfEducation.toString() + "," +
-                (groupAdmin == null ? " ,0,UNDEFINED,UNDEFINED,0.0,0.0,0.0, " : groupAdmin.toString());
+                (groupAdmin == null ? " ,0,UNDEFINED,UNDEFINED,0.0,0.0,0.0, " : groupAdmin.toString()) + ";" + id + ";";
     }
 
     /**
@@ -239,5 +240,15 @@ public class StudyGroup implements Comparable<StudyGroup> {
     @Override
     public int compareTo(StudyGroup o) {
         return name.compareTo(o.getName());
+    }
+
+    public void setID(long id) throws IncorrectLineFormat {
+        long i = 0;
+        if (!IdGenerator.checkID(id)) {
+            this.id = id;
+            IdGenerator.addId(id);
+        } else {
+            throw new IncorrectLineFormat("Invalid ID");
+        }
     }
 }

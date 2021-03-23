@@ -2,6 +2,7 @@ package ru.itmo.p3114.s312198.file;
 
 import ru.itmo.p3114.s312198.collection.StudyGroup;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashSet;
 
@@ -14,14 +15,22 @@ public class DataFileWriter {
      * @param filename File name
      * @param studyGroups Collection
      */
-    public void safeWrite(String filename, LinkedHashSet<StudyGroup> studyGroups) {
+    public boolean safeWrite(String filename, LinkedHashSet<StudyGroup> studyGroups) {
+        File file = new File(filename);
+
         try (java.io.FileWriter fileWriter = new java.io.FileWriter(filename)) {
             for (StudyGroup studyGroup : studyGroups) {
                 fileWriter.write(studyGroup.toCSVLine() + '\n');
             }
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            if (file.exists()) {
+                System.out.println("Not enough rights to access file \"" + filename + "\"");
+            } else {
+                System.out.println("File \"" + filename + "\" does not exist");
+            }
+            return false;
         }
+        return true;
     }
 
     /**
