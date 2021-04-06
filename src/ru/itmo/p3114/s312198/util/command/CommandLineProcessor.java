@@ -386,94 +386,9 @@ public class CommandLineProcessor {
         String input;
         boolean wrong = true;
 
-        if (!suppressOutput) {
-            System.out.print("Enter the name of a new group (String value): ");
-        }
-        while (FieldParser.parseName(input = ConsoleReader.readLine()) == null) {
+        try {
             if (!suppressOutput) {
-                System.out.println("Incorrect input, try again");
-                System.out.print("> ");
-            }
-        }
-        args.add(input);
-
-        if (!suppressOutput) {
-            System.out.print("Enter the coordinates (x y; x is Integer and y is Double <= 426): ");
-        }
-        while (FieldParser.parseCoordinates(input = ConsoleReader.readLine()) == null) {
-            if (!suppressOutput) {
-                System.out.println("Incorrect input, try again");
-                System.out.print("> ");
-            }
-        }
-        args.add(input);
-
-        if (!suppressOutput) {
-            System.out.print("Enter students count (Integer value): ");
-        }
-        while (FieldParser.parseStudentsCount(input = ConsoleReader.readLine()) == null) {
-            if (!suppressOutput) {
-                System.out.println("Incorrect input, try again");
-                System.out.print("> ");
-            }
-        }
-        args.add(input);
-
-        if (!suppressOutput) {
-            System.out.print("Enter the number of students that should be expelled (Integer value): ");
-        }
-        while (wrong) {
-            try {
-                FieldParser.parseShouldBeExpelled(input = ConsoleReader.readLine());
-                wrong = false;
-            } catch (ValueOutOfBoundsException voob) {
-                if (!suppressOutput) {
-                    System.out.println("Incorrect input, try again");
-                    System.out.print("> ");
-                }
-            }
-        }
-        args.add(input);
-
-        wrong = true;
-
-        if (!suppressOutput) {
-            System.out.print("Enter the number of transferred students (Integer value): ");
-        }
-        while (wrong) {
-            try {
-                FieldParser.parseTransferredStudents(input = ConsoleReader.readLine());
-                wrong = false;
-            } catch (ValueOutOfBoundsException voob) {
-                if (!suppressOutput) {
-                    System.out.println("Incorrect input, try again");
-                    System.out.print("> ");
-                }
-            }
-        }
-        args.add(input);
-
-        if (!suppressOutput) {
-            System.out.print("Enter the form of education (" + FormOfEducation.getValues() + "): ");
-        }
-        while (FieldParser.parseFormOfEducation(input = ConsoleReader.readLine()) == null) {
-            if (!suppressOutput) {
-                System.out.println("Incorrect input, try again");
-                System.out.print("> ");
-            }
-        }
-        args.add(input);
-
-        if (!suppressOutput) {
-            System.out.print("Does the group have an admin? (Y/N): ");
-        }
-        input = ConsoleReader.readLine();
-
-        if (!"Y".equals(input.split("\\s+?")[0].toUpperCase(Locale.ROOT))) {
-            return args;
-        } else {
-            if (!suppressOutput) {
-                System.out.print("Enter the group admin`s name (String value): ");
+                System.out.print("Enter the name of a new group (String value): ");
             }
             while (FieldParser.parseName(input = ConsoleReader.readLine()) == null) {
                 if (!suppressOutput) {
@@ -483,14 +398,52 @@ public class CommandLineProcessor {
             }
             args.add(input);
 
-            wrong = true;
+            if (!suppressOutput) {
+                System.out.print("Enter the coordinates (x y; x is Integer and y is Double <= 426): ");
+            }
+            while (FieldParser.parseCoordinates(input = ConsoleReader.readLine()) == null) {
+                if (!suppressOutput) {
+                    System.out.println("Incorrect input, try again");
+                    System.out.print("> ");
+                }
+            }
+            args.add(input);
 
             if (!suppressOutput) {
-                System.out.print("Enter the group admin`s height (Positive Long value): ");
+                System.out.print("Enter students count (Integer value): ");
+            }
+            while (FieldParser.parseStudentsCount(input = ConsoleReader.readLine()) == null) {
+                if (!suppressOutput) {
+                    System.out.println("Incorrect input, try again");
+                    System.out.print("> ");
+                }
+            }
+            args.add(input);
+
+            if (!suppressOutput) {
+                System.out.print("Enter the number of students that should be expelled (Integer value): ");
             }
             while (wrong) {
                 try {
-                    FieldParser.parseHeight(input = ConsoleReader.readLine());
+                    FieldParser.parseShouldBeExpelled(input = ConsoleReader.readLine());
+                    wrong = false;
+                } catch (ValueOutOfBoundsException voob) {
+                    if (!suppressOutput) {
+                        System.out.println("Incorrect input, try again");
+                        System.out.print("> ");
+                    }
+                }
+            }
+            args.add(input);
+
+            wrong = true;
+
+            if (!suppressOutput) {
+                System.out.print("Enter the number of transferred students (Integer value): ");
+            }
+            while (wrong) {
+                try {
+                    FieldParser.parseTransferredStudents(input = ConsoleReader.readLine());
                     wrong = false;
                 } catch (ValueOutOfBoundsException voob) {
                     if (!suppressOutput) {
@@ -502,17 +455,9 @@ public class CommandLineProcessor {
             args.add(input);
 
             if (!suppressOutput) {
-                System.out.print("Enter the group admin`s hair color (" + Color.getValues() + "): ");
+                System.out.print("Enter the form of education (" + FormOfEducation.getValues() + "): ");
             }
-            if (FieldParser.parseHairColor(input = ConsoleReader.readLine()) == null) {
-                input = "UNDEFINED";
-            }
-            args.add(input);
-
-            if (!suppressOutput) {
-                System.out.print("Enter the group admin`s nationality (" + Country.getValues() + "): ");
-            }
-            while (FieldParser.parseNationality(input = ConsoleReader.readLine()) == null) {
+            while (FieldParser.parseFormOfEducation(input = ConsoleReader.readLine()) == null) {
                 if (!suppressOutput) {
                     System.out.println("Incorrect input, try again");
                     System.out.print("> ");
@@ -521,7 +466,7 @@ public class CommandLineProcessor {
             args.add(input);
 
             if (!suppressOutput) {
-                System.out.print("Does the group admin have location? (Y/N): ");
+                System.out.print("Does the group have an admin? (Y/N): ");
             }
             input = ConsoleReader.readLine();
 
@@ -529,18 +474,7 @@ public class CommandLineProcessor {
                 return args;
             } else {
                 if (!suppressOutput) {
-                    System.out.print("Enter the group admin`s location coordinates (x y z; 3 Float values divided by space): ");
-                }
-                while (FieldParser.parseLocationCoords(input = ConsoleReader.readLine()) == null) {
-                    if (!suppressOutput) {
-                        System.out.println("Incorrect input, try again");
-                        System.out.print("> ");
-                    }
-                }
-                args.add(input);
-
-                if (!suppressOutput) {
-                    System.out.print("Enter the group admin`s location name (String value): ");
+                    System.out.print("Enter the group admin`s name (String value): ");
                 }
                 while (FieldParser.parseName(input = ConsoleReader.readLine()) == null) {
                     if (!suppressOutput) {
@@ -549,7 +483,78 @@ public class CommandLineProcessor {
                     }
                 }
                 args.add(input);
+
+                wrong = true;
+
+                if (!suppressOutput) {
+                    System.out.print("Enter the group admin`s height (Positive Long value): ");
+                }
+                while (wrong) {
+                    try {
+                        FieldParser.parseHeight(input = ConsoleReader.readLine());
+                        wrong = false;
+                    } catch (ValueOutOfBoundsException voob) {
+                        if (!suppressOutput) {
+                            System.out.println("Incorrect input, try again");
+                            System.out.print("> ");
+                        }
+                    }
+                }
+                args.add(input);
+
+                if (!suppressOutput) {
+                    System.out.print("Enter the group admin`s hair color (" + Color.getValues() + "): ");
+                }
+                if (FieldParser.parseHairColor(input = ConsoleReader.readLine()) == null) {
+                    input = "UNDEFINED";
+                }
+                args.add(input);
+
+                if (!suppressOutput) {
+                    System.out.print("Enter the group admin`s nationality (" + Country.getValues() + "): ");
+                }
+                while (FieldParser.parseNationality(input = ConsoleReader.readLine()) == null) {
+                    if (!suppressOutput) {
+                        System.out.println("Incorrect input, try again");
+                        System.out.print("> ");
+                    }
+                }
+                args.add(input);
+
+                if (!suppressOutput) {
+                    System.out.print("Does the group admin have location? (Y/N): ");
+                }
+                input = ConsoleReader.readLine();
+
+                if (!"Y".equals(input.split("\\s+?")[0].toUpperCase(Locale.ROOT))) {
+                    return args;
+                } else {
+                    if (!suppressOutput) {
+                        System.out.print("Enter the group admin`s location coordinates (x y z; 3 Float values divided by space): ");
+                    }
+                    while (FieldParser.parseLocationCoords(input = ConsoleReader.readLine()) == null) {
+                        if (!suppressOutput) {
+                            System.out.println("Incorrect input, try again");
+                            System.out.print("> ");
+                        }
+                    }
+                    args.add(input);
+
+                    if (!suppressOutput) {
+                        System.out.print("Enter the group admin`s location name (String value): ");
+                    }
+                    while (FieldParser.parseName(input = ConsoleReader.readLine()) == null) {
+                        if (!suppressOutput) {
+                            System.out.println("Incorrect input, try again");
+                            System.out.print("> ");
+                        }
+                    }
+                    args.add(input);
+                }
             }
+        } catch (Exception e) {
+            Exit exit = new Exit();
+            exit.execute();
         }
         return args;
     }

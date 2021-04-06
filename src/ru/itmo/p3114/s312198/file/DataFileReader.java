@@ -3,10 +3,7 @@ package ru.itmo.p3114.s312198.file;
 import ru.itmo.p3114.s312198.collection.*;
 import ru.itmo.p3114.s312198.exception.IncorrectLineFormat;
 import ru.itmo.p3114.s312198.exception.ValueOutOfBoundsException;
-import ru.itmo.p3114.s312198.util.FieldParser;
-import ru.itmo.p3114.s312198.util.LocationBuilder;
-import ru.itmo.p3114.s312198.util.PersonBuilder;
-import ru.itmo.p3114.s312198.util.StudyGroupBuilder;
+import ru.itmo.p3114.s312198.util.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -61,7 +58,14 @@ public class DataFileReader {
             }
 
             StudyGroup studyGroup = studyGroupBuilder.toStudyGroup();
+            IdGenerator.clearIDs();
             studyGroup.setID(Long.parseLong(matcher.group(17)));
+
+            try {
+                studyGroup.toCSVLine();
+            } catch (Exception e) {
+                throw new IncorrectLineFormat(line);
+            }
 
             return studyGroup;
         } catch (ValueOutOfBoundsException | NumberFormatException fme) {

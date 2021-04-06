@@ -9,7 +9,7 @@ public class IdGenerator {
     private static long currentId = 0;
     private final static LinkedHashSet<Long> usedIDs = new LinkedHashSet<>();
 
-    private IdGenerator() {};
+    private IdGenerator() {}
 
     /**
      * @return A unique number
@@ -38,5 +38,12 @@ public class IdGenerator {
      */
     public static void addId(long id) {
         usedIDs.add(id);
+    }
+
+    /**
+     * Clears ID list
+     */
+    public static void clearIDs() {
+        usedIDs.clear();
     }
 }

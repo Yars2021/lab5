@@ -243,7 +243,6 @@ public class StudyGroup implements Comparable<StudyGroup> {
     }
 
     public void setID(long id) throws IncorrectLineFormat {
-        long i = 0;
         if (!IdGenerator.checkID(id)) {
             this.id = id;
             IdGenerator.addId(id);
