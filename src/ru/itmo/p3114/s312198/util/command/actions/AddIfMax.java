@@ -15,7 +15,7 @@ import java.util.LinkedHashSet;
  * Adds a new element to the collection, but only if it`s the greatest
  */
 public class AddIfMax extends AbstractCommand {
-    private final LinkedHashSet<StudyGroup> studyGroups;
+    private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates a new instance of AddIfMax command
@@ -33,6 +33,10 @@ public class AddIfMax extends AbstractCommand {
      */
     public AddIfMax(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("add_if_max", arguments);
+        this.studyGroups = studyGroups;
+    }
+
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
     }
 

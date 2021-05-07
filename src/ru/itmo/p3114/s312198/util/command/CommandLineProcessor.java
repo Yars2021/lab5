@@ -3,15 +3,13 @@ package ru.itmo.p3114.s312198.util.command;
 import ru.itmo.p3114.s312198.collection.Color;
 import ru.itmo.p3114.s312198.collection.Country;
 import ru.itmo.p3114.s312198.collection.FormOfEducation;
-import ru.itmo.p3114.s312198.collection.StudyGroup;
 import ru.itmo.p3114.s312198.exception.ValueOutOfBoundsException;
 import ru.itmo.p3114.s312198.util.ConsoleReader;
 import ru.itmo.p3114.s312198.util.FieldParser;
-
+import ru.itmo.p3114.s312198.util.command.actions.AbstractCommand;
 import ru.itmo.p3114.s312198.util.command.actions.Add;
 import ru.itmo.p3114.s312198.util.command.actions.AddIfMax;
 import ru.itmo.p3114.s312198.util.command.actions.Clear;
-import ru.itmo.p3114.s312198.util.command.actions.AbstractCommand;
 import ru.itmo.p3114.s312198.util.command.actions.ExecuteScript;
 import ru.itmo.p3114.s312198.util.command.actions.Exit;
 import ru.itmo.p3114.s312198.util.command.actions.Help;
@@ -27,7 +25,6 @@ import ru.itmo.p3114.s312198.util.command.actions.Show;
 import ru.itmo.p3114.s312198.util.command.actions.Update;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -46,23 +43,15 @@ import java.util.Locale;
 // 11: LocationName
 
 /**
- * Processes the user`s input and calls commands
+ * Processes the user`s input
  */
 public class CommandLineProcessor {
-    private final LinkedHashSet<StudyGroup> studyGroups;
     private final LinkedList<AbstractCommand> history = new LinkedList<>();
 
     /**
-     * Creates a new Command line processor and tells it the collection, it`s going to work with
-     * @param collection Collection
-     */
-    public CommandLineProcessor(LinkedHashSet<StudyGroup> collection) {
-        studyGroups = collection;
-    }
-
-    /**
-     * Parses a String, splits it into command name and arguments, creates and executes the command
-     * @param line Input
+     * Parses a String, splits it into command name and arguments, creates the command
+     *
+     * @param line           Input
      * @param suppressOutput Will not print anything if set to true
      * @return Last used command
      */
@@ -90,17 +79,14 @@ public class CommandLineProcessor {
                 currentCommand.execute();
                 break;
             case INFO:
-                currentCommand = new Info(studyGroups);
-                currentCommand.execute();
+                currentCommand = new Info(null);
                 break;
             case SHOW:
-                currentCommand = new Show(studyGroups);
-                currentCommand.execute();
+                currentCommand = new Show(null);
                 break;
             case ADD:
                 arguments = requestElement(suppressOutput);
-                currentCommand = new Add(arguments, studyGroups);
-                currentCommand.execute();
+                currentCommand = new Add(arguments, null);
                 break;
             case UPDATE:
                 arguments = new ArrayList<>();
@@ -110,8 +96,7 @@ public class CommandLineProcessor {
                 } catch (ArrayIndexOutOfBoundsException aioob) {
                     System.out.println("Incorrect input, no argument found");
                 }
-                currentCommand = new Update(arguments, studyGroups);
-                currentCommand.execute();
+                currentCommand = new Update(arguments, null);
                 break;
             case REMOVE_BY_ID:
                 arguments = new ArrayList<>();
@@ -120,12 +105,10 @@ public class CommandLineProcessor {
                 } catch (ArrayIndexOutOfBoundsException aioob) {
                     System.out.println("Incorrect input, no argument found");
                 }
-                currentCommand = new RemoveByID(arguments, studyGroups);
-                currentCommand.execute();
+                currentCommand = new RemoveByID(arguments, null);
                 break;
             case CLEAR:
-                currentCommand = new Clear(studyGroups);
-                currentCommand.execute();
+                currentCommand = new Clear(null);
                 break;
             case SAVE:
                 arguments = new ArrayList<>();
@@ -134,8 +117,7 @@ public class CommandLineProcessor {
                 } catch (ArrayIndexOutOfBoundsException aioob) {
                     System.out.println("Incorrect input, no argument found");
                 }
-                currentCommand = new Save(arguments, studyGroups);
-                currentCommand.execute();
+                currentCommand = new Save(arguments, null);
                 break;
             case EXECUTE_SCRIPT:
                 arguments = new ArrayList<>();
@@ -144,8 +126,7 @@ public class CommandLineProcessor {
                 } catch (ArrayIndexOutOfBoundsException aioob) {
                     System.out.println("Incorrect input, no argument found");
                 }
-                currentCommand = new ExecuteScript(arguments, studyGroups);
-                currentCommand.execute();
+                currentCommand = new ExecuteScript(arguments, null);
                 break;
             case EXIT:
                 currentCommand = new Exit();
@@ -153,13 +134,11 @@ public class CommandLineProcessor {
                 break;
             case ADD_IF_MAX:
                 arguments = requestElement(suppressOutput);
-                currentCommand = new AddIfMax(arguments, studyGroups);
-                currentCommand.execute();
+                currentCommand = new AddIfMax(arguments, null);
                 break;
             case REMOVE_GREATER:
                 arguments = requestElement(suppressOutput);
-                currentCommand = new RemoveGreater(arguments, studyGroups);
-                currentCommand.execute();
+                currentCommand = new RemoveGreater(arguments, null);
                 break;
             case HISTORY:
                 currentCommand = new History(history);
@@ -174,14 +153,13 @@ public class CommandLineProcessor {
                 }
                 try {
                     FieldParser.parseShouldBeExpelled(arguments.get(0));
-                    currentCommand = new RemoveAllByShouldBeExpelled(arguments, studyGroups);
+                    currentCommand = new RemoveAllByShouldBeExpelled(arguments, null);
                 } catch (ValueOutOfBoundsException voob) {
                     System.out.println("Incorrect value format");
                     currentCommand = new RemoveAllByShouldBeExpelled(null, null);
                 } catch (IndexOutOfBoundsException ioob) {
                     currentCommand = new RemoveAllByShouldBeExpelled(null, null);
                 }
-                currentCommand.execute();
                 break;
             case REMOVE_ANY_BY_TRANSFERRED_STUDENTS:
                 arguments = new ArrayList<>();
@@ -192,18 +170,16 @@ public class CommandLineProcessor {
                 }
                 try {
                     FieldParser.parseTransferredStudents(arguments.get(0));
-                    currentCommand = new RemoveAnyByTransferredStudents(arguments, studyGroups);
+                    currentCommand = new RemoveAnyByTransferredStudents(arguments, null);
                 } catch (ValueOutOfBoundsException voob) {
                     System.out.println("Incorrect value format");
                     currentCommand = new RemoveAnyByTransferredStudents(null, null);
                 } catch (IndexOutOfBoundsException ioob) {
                     currentCommand = new RemoveAllByShouldBeExpelled(null, null);
                 }
-                currentCommand.execute();
                 break;
             case PRINT_FIELD_ASCENDING_GROUP_ADMIN:
-                currentCommand = new PrintFieldAscendingGroupAdmin(studyGroups);
-                currentCommand.execute();
+                currentCommand = new PrintFieldAscendingGroupAdmin(null);
                 break;
         }
 
@@ -216,7 +192,8 @@ public class CommandLineProcessor {
     }
 
     /**
-     * Parses a String, splits it into command name and arguments, creates and executes the command,
+     * Parses a String, splits it into command name and arguments, creates the command
+     *
      * @param lines Lines of the file
      * @param index The index of current line
      * @return Last used command
@@ -242,18 +219,15 @@ public class CommandLineProcessor {
                 currentCommand.execute();
                 break;
             case INFO:
-                currentCommand = new Info(studyGroups);
-                currentCommand.execute();
+                currentCommand = new Info(null);
                 break;
             case SHOW:
-                currentCommand = new Show(studyGroups);
-                currentCommand.execute();
+                currentCommand = new Show(null);
                 break;
             case ADD:
                 try {
                     arguments = readElement(lines, index);
-                    currentCommand = new Add(arguments, studyGroups);
-                    currentCommand.execute();
+                    currentCommand = new Add(arguments, null);
                 } catch (Exception e) {
                     System.out.println("Incorrect input");
                 }
@@ -266,8 +240,7 @@ public class CommandLineProcessor {
                 } catch (Exception aioob) {
                     System.out.println("Incorrect input, no argument found");
                 }
-                currentCommand = new Update(arguments, studyGroups);
-                currentCommand.execute();
+                currentCommand = new Update(arguments, null);
                 break;
             case REMOVE_BY_ID:
                 arguments = new ArrayList<>();
@@ -276,12 +249,9 @@ public class CommandLineProcessor {
                 } catch (ArrayIndexOutOfBoundsException aioob) {
                     System.out.println("Incorrect input, no argument found");
                 }
-                currentCommand = new RemoveByID(arguments, studyGroups);
-                currentCommand.execute();
                 break;
             case CLEAR:
-                currentCommand = new Clear(studyGroups);
-                currentCommand.execute();
+                currentCommand = new Clear(null);
                 break;
             case SAVE:
                 arguments = new ArrayList<>();
@@ -290,8 +260,7 @@ public class CommandLineProcessor {
                 } catch (ArrayIndexOutOfBoundsException aioob) {
                     System.out.println("Incorrect input, no argument found");
                 }
-                currentCommand = new Save(arguments, studyGroups);
-                currentCommand.execute();
+                currentCommand = new Save(arguments, null);
                 break;
             case EXECUTE_SCRIPT:
                 arguments = new ArrayList<>();
@@ -300,32 +269,29 @@ public class CommandLineProcessor {
                 } catch (ArrayIndexOutOfBoundsException aioob) {
                     System.out.println("Incorrect input, no argument found");
                 }
-                currentCommand = new ExecuteScript(arguments, studyGroups);
-                currentCommand.execute();
+                currentCommand = new ExecuteScript(arguments, null);
                 break;
             case EXIT:
                 currentCommand = new Exit();
                 currentCommand.execute();
                 break;
             case ADD_IF_MAX:
-                arguments  = new ArrayList<>();
+                arguments = new ArrayList<>();
                 try {
                     arguments = readElement(lines, index);
                 } catch (Exception e) {
                     System.out.println("Incorrect input");
                 }
-                currentCommand = new AddIfMax(arguments, studyGroups);
-                currentCommand.execute();
+                currentCommand = new AddIfMax(arguments, null);
                 break;
             case REMOVE_GREATER:
-                arguments  = new ArrayList<>();
+                arguments = new ArrayList<>();
                 try {
                     arguments = readElement(lines, index);
                 } catch (Exception e) {
                     System.out.println("Incorrect input");
                 }
-                currentCommand = new RemoveGreater(arguments, studyGroups);
-                currentCommand.execute();
+                currentCommand = new RemoveGreater(arguments, null);
                 break;
             case HISTORY:
                 currentCommand = new History(history);
@@ -340,14 +306,13 @@ public class CommandLineProcessor {
                 }
                 try {
                     FieldParser.parseShouldBeExpelled(arguments.get(0));
-                    currentCommand = new RemoveAllByShouldBeExpelled(arguments, studyGroups);
+                    currentCommand = new RemoveAllByShouldBeExpelled(arguments, null);
                 } catch (ValueOutOfBoundsException voob) {
                     System.out.println("Incorrect value format");
                     currentCommand = new RemoveAllByShouldBeExpelled(null, null);
                 } catch (IndexOutOfBoundsException ioob) {
                     currentCommand = new RemoveAllByShouldBeExpelled(null, null);
                 }
-                currentCommand.execute();
                 break;
             case REMOVE_ANY_BY_TRANSFERRED_STUDENTS:
                 arguments = new ArrayList<>();
@@ -358,18 +323,16 @@ public class CommandLineProcessor {
                 }
                 try {
                     FieldParser.parseTransferredStudents(arguments.get(0));
-                    currentCommand = new RemoveAnyByTransferredStudents(arguments, studyGroups);
+                    currentCommand = new RemoveAnyByTransferredStudents(arguments, null);
                 } catch (ValueOutOfBoundsException voob) {
                     System.out.println("Incorrect value format");
                     currentCommand = new RemoveAnyByTransferredStudents(null, null);
                 } catch (IndexOutOfBoundsException ioob) {
                     currentCommand = new RemoveAllByShouldBeExpelled(null, null);
                 }
-                currentCommand.execute();
                 break;
             case PRINT_FIELD_ASCENDING_GROUP_ADMIN:
-                currentCommand = new PrintFieldAscendingGroupAdmin(studyGroups);
-                currentCommand.execute();
+                currentCommand = new PrintFieldAscendingGroupAdmin(null);
                 break;
         }
 
@@ -378,6 +341,7 @@ public class CommandLineProcessor {
 
     /**
      * Requests StudyGroup field values from the user and validates them
+     *
      * @param suppressOutput Will not print anything if set to true
      * @return ArrayList of values
      */
@@ -561,6 +525,7 @@ public class CommandLineProcessor {
 
     /**
      * Reads StudyGroup field values and validates them
+     *
      * @param lines The lines, read from file
      * @param index Current index
      * @return ArrayList of values

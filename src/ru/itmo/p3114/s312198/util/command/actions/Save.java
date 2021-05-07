@@ -11,7 +11,7 @@ import java.util.LinkedHashSet;
  * Saves the collection
  */
 public class Save extends AbstractCommand {
-    private final LinkedHashSet<StudyGroup> studyGroups;
+    private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates an instance of Save command
@@ -29,6 +29,10 @@ public class Save extends AbstractCommand {
      */
     public Save(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("save", arguments);
+        this.studyGroups = studyGroups;
+    }
+
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
     }
 

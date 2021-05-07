@@ -9,7 +9,7 @@ import java.util.LinkedHashSet;
  * Clears the collection
  */
 public class Clear extends AbstractCommand {
-    private final LinkedHashSet<StudyGroup> studyGroups;
+    private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates a new instance of Clear command
@@ -27,6 +27,10 @@ public class Clear extends AbstractCommand {
      */
     public Clear(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("clear", arguments);
+        this.studyGroups = studyGroups;
+    }
+
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
     }
 

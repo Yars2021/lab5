@@ -16,7 +16,7 @@ import java.util.List;
  * Executes a script of these commands
  */
 public class ExecuteScript extends AbstractCommand {
-    private final LinkedHashSet<StudyGroup> studyGroups;
+    private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates a new instance of ExecuteScript command
@@ -37,6 +37,10 @@ public class ExecuteScript extends AbstractCommand {
         this.studyGroups = studyGroups;
     }
 
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
+        this.studyGroups = studyGroups;
+    }
+
     /**
      * Executes the ExecuteScriptCommand
      * @return Status (OK, FAILED if there is a risk of stack overflow, INCORRECT_ARGUMENTS)
@@ -53,25 +57,25 @@ public class ExecuteScript extends AbstractCommand {
                 status = Status.FAILED;
                 return Status.FAILED;
             } else {
-                FileHashSet.add(arguments.get(0));
-
-                CommandLineProcessor commandLineProcessor = new CommandLineProcessor(studyGroups);
-
-                List<String> lines;
-                try {
-                    lines = Files.readAllLines(Paths.get(arguments.get(0)), StandardCharsets.UTF_8);
-                } catch (IOException e) {
-                    status = Status.FAILED;
-                    return Status.FAILED;
-                }
-
-                for (int i = 0; i < lines.size(); i++) {
-                    if (lines.get(i).startsWith(":")) {
-                        commandLineProcessor.parseFileInput(lines, i);
-                    }
-                }
-
-                FileHashSet.remove(arguments.get(0));
+//                FileHashSet.add(arguments.get(0));
+//
+//                CommandLineProcessor commandLineProcessor = new CommandLineProcessor(studyGroups);
+//
+//                List<String> lines;
+//                try {
+//                    lines = Files.readAllLines(Paths.get(arguments.get(0)), StandardCharsets.UTF_8);
+//                } catch (IOException e) {
+//                    status = Status.FAILED;
+//                    return Status.FAILED;
+//                }
+//
+//                for (int i = 0; i < lines.size(); i++) {
+//                    if (lines.get(i).startsWith(":")) {
+//                        commandLineProcessor.parseFileInput(lines, i);
+//                    }
+//                }
+//
+//                FileHashSet.remove(arguments.get(0));
                 status = Status.OK;
                 return Status.OK;
             }

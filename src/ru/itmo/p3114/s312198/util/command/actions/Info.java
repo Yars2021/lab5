@@ -9,7 +9,7 @@ import java.util.LinkedHashSet;
  * Shows some information about the collection
  */
 public class Info extends AbstractCommand {
-    private final LinkedHashSet<StudyGroup> studyGroups;
+    private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates a new instance of Info command
@@ -27,6 +27,10 @@ public class Info extends AbstractCommand {
      */
     public Info(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("info", arguments);
+        this.studyGroups = studyGroups;
+    }
+
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
     }
 

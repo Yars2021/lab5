@@ -9,7 +9,7 @@ import java.util.LinkedHashSet;
  * Removes an element with current transferredStudents value
  */
 public class RemoveAnyByTransferredStudents extends AbstractCommand {
-    private final LinkedHashSet<StudyGroup> studyGroups;
+    private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates an instance of RemoveAnyByTransferredStudents command
@@ -27,6 +27,10 @@ public class RemoveAnyByTransferredStudents extends AbstractCommand {
      */
     public RemoveAnyByTransferredStudents(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("remove_any_by_transferred_students", arguments);
+        this.studyGroups = studyGroups;
+    }
+
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
     }
 

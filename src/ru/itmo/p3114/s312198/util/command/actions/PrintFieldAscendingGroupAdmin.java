@@ -12,7 +12,7 @@ import java.util.LinkedList;
  * Prints all the group admins sorted from the smallest to the biggest value
  */
 public class PrintFieldAscendingGroupAdmin extends AbstractCommand {
-    private final LinkedHashSet<StudyGroup> studyGroups;
+    private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates an instance of PrintFieldAscendingGroupAdmin command
@@ -30,6 +30,10 @@ public class PrintFieldAscendingGroupAdmin extends AbstractCommand {
      */
     public PrintFieldAscendingGroupAdmin(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("print_field_ascending_group_admin", arguments);
+        this.studyGroups = studyGroups;
+    }
+
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
     }
 

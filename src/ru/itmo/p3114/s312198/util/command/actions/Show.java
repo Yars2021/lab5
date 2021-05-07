@@ -9,7 +9,7 @@ import java.util.LinkedHashSet;
  * Shows all the elements of the collection
  */
 public class Show extends AbstractCommand {
-    private final LinkedHashSet<StudyGroup> studyGroups;
+    private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates an new instance of Shpw command
@@ -27,6 +27,10 @@ public class Show extends AbstractCommand {
      */
     public Show(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("show", arguments);
+        this.studyGroups = studyGroups;
+    }
+
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
     }
 

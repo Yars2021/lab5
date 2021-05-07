@@ -9,7 +9,7 @@ import java.util.LinkedHashSet;
  * Removes an element by ID
  */
 public class RemoveByID extends AbstractCommand {
-    private final LinkedHashSet<StudyGroup> studyGroups;
+    private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates an instance of RemoveByID command
@@ -27,6 +27,10 @@ public class RemoveByID extends AbstractCommand {
      */
     public RemoveByID(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("remove_by_id", arguments);
+        this.studyGroups = studyGroups;
+    }
+
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
     }
 

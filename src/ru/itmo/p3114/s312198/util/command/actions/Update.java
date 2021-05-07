@@ -13,7 +13,7 @@ import java.util.LinkedHashSet;
  * Updates an element by ID
  */
 public class Update extends AbstractCommand {
-    private final LinkedHashSet<StudyGroup> studyGroups;
+    private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates an instance of Update command
@@ -31,6 +31,10 @@ public class Update extends AbstractCommand {
      */
     public Update(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("update", arguments);
+        this.studyGroups = studyGroups;
+    }
+
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
     }
 

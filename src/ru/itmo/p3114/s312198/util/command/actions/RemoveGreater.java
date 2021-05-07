@@ -15,7 +15,7 @@ import java.util.LinkedHashSet;
  * Removes all the elements, greater than current
  */
 public class RemoveGreater extends AbstractCommand {
-    private final LinkedHashSet<StudyGroup> studyGroups;
+    private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates an instance of RemoveGreater command
@@ -33,6 +33,10 @@ public class RemoveGreater extends AbstractCommand {
      */
     public RemoveGreater(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("remove_greater", arguments);
+        this.studyGroups = studyGroups;
+    }
+
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
     }
 

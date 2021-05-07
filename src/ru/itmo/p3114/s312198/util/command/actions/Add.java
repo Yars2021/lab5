@@ -15,7 +15,7 @@ import java.util.LinkedHashSet;
  * Adds a new element to the collection
  */
 public class Add extends AbstractCommand {
-    private final LinkedHashSet<StudyGroup> studyGroups;
+    private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates a new instance of Add command
@@ -33,6 +33,10 @@ public class Add extends AbstractCommand {
      */
     public Add(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("add", arguments);
+        this.studyGroups = studyGroups;
+    }
+
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
     }
 

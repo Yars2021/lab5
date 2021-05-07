@@ -9,7 +9,7 @@ import java.util.LinkedHashSet;
  * Removes all the elements with current shouldBeExpelled value
  */
 public class RemoveAllByShouldBeExpelled extends AbstractCommand {
-    private final LinkedHashSet<StudyGroup> studyGroups;
+    private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates an instance of public class RemoveAllByShouldBeExpelled extends AbstractCommand { command
@@ -27,6 +27,10 @@ public class RemoveAllByShouldBeExpelled extends AbstractCommand {
      */
     public RemoveAllByShouldBeExpelled(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
         super("remove_all_by_should_be_expelled", arguments);
+        this.studyGroups = studyGroups;
+    }
+
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
         this.studyGroups = studyGroups;
     }
 
