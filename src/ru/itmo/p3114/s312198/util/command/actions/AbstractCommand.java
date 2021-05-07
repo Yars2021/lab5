@@ -1,11 +1,12 @@
 package ru.itmo.p3114.s312198.util.command.actions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Abstract command class.
  */
-abstract public class AbstractCommand {
+abstract public class AbstractCommand implements Serializable {
     protected String command = "";
     protected ArrayList<String> arguments;
     protected Status status = Status.UNDEFINED;
