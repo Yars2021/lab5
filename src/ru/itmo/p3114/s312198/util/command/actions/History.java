@@ -1,5 +1,8 @@
 package ru.itmo.p3114.s312198.util.command.actions;
 
+import ru.itmo.p3114.s312198.util.CommandOutput;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -23,20 +26,25 @@ public class History extends AbstractCommand {
      * @return Status
      */
     @Override
-    public Status execute() {
+    public CommandOutput execute() {
         if (commands == null) {
-            status = Status.FAILED;
-            return Status.FAILED;
+            status.setStatus(Status.FAILED);
+            status.setOutput(null);
+            return status;
         } else {
+            ArrayList<String> output = new ArrayList<>();
+
             if (commands.isEmpty()) {
-                System.out.println("History is empty");
+                output.add("History is empty");
             } else {
                 for (AbstractCommand command : commands) {
-                    System.out.println(command.getCommand() + " [" + command.getStatus() + "]");
+                    output.add(command.getCommand() + " [" + command.getStatusOut().getStatus() + "]");
                 }
             }
-            status = Status.OK;
-            return Status.OK;
+
+            status.setStatus(Status.OK);
+            status.setOutput(output);
+            return status;
         }
     }
 }

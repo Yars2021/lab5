@@ -1,9 +1,11 @@
 package ru.itmo.p3114.s312198.collection;
 
+import java.io.Serializable;
+
 /**
  * StudyGroup Coordinates class
  */
-public class Coordinates {
+public class Coordinates implements Serializable {
     private long x;
     private Double y; //Максимальное значение поля: 426, Поле не может быть null
 

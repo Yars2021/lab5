@@ -3,12 +3,13 @@ package ru.itmo.p3114.s312198.collection;
 import ru.itmo.p3114.s312198.exception.IncorrectLineFormat;
 import ru.itmo.p3114.s312198.util.IdGenerator;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * Study group class
  */
-public class StudyGroup implements Comparable<StudyGroup> {
+public class StudyGroup implements Serializable, Comparable<StudyGroup> {
     private long id = IdGenerator.getNextId(); //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null

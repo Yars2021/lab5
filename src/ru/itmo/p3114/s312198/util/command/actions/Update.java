@@ -4,6 +4,7 @@ import ru.itmo.p3114.s312198.collection.Location;
 import ru.itmo.p3114.s312198.collection.Person;
 import ru.itmo.p3114.s312198.collection.StudyGroup;
 import ru.itmo.p3114.s312198.exception.ValueOutOfBoundsException;
+import ru.itmo.p3114.s312198.util.CommandOutput;
 import ru.itmo.p3114.s312198.util.FieldParser;
 
 import java.util.ArrayList;
@@ -43,10 +44,11 @@ public class Update extends AbstractCommand {
      * @return Status (OK, FAILED if there is no element with such ID or some field values are out of bounds, INCORRECT_ARGUMENTS)
      */
     @Override
-    public Status execute() {
+    public CommandOutput execute() {
         if (getArguments() == null || (arguments.size() != 13 && arguments.size() != 11 && arguments.size() != 7)) {
-            status = Status.INCORRECT_ARGUMENTS;
-            return Status.INCORRECT_ARGUMENTS;
+            status.setStatus(Status.INCORRECT_ARGUMENTS);
+            status.setOutput(null);
+            return status;
         } else {
             Person admin = null;
             Location location = null;
@@ -81,18 +83,21 @@ public class Update extends AbstractCommand {
                             sg.setGroupAdmin(admin);
                         }
 
-                        status = Status.OK;
-                        return Status.OK;
+                        status.setStatus(Status.OK);
+                        status.setOutput(null);
+                        return status;
                     } catch (ValueOutOfBoundsException voob) {
                         voob.printStackTrace();
-                        status = Status.FAILED;
-                        return Status.FAILED;
+                        status.setStatus(Status.FAILED);
+                        status.setOutput(null);
+                        return status;
                     }
                 }
             }
 
-            status = Status.FAILED;
-            return Status.FAILED;
+            status.setStatus(Status.FAILED);
+            status.setOutput(null);
+            return status;
         }
     }
 }

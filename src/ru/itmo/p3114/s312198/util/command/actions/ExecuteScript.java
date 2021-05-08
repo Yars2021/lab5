@@ -1,6 +1,7 @@
 package ru.itmo.p3114.s312198.util.command.actions;
 
 import ru.itmo.p3114.s312198.collection.StudyGroup;
+import ru.itmo.p3114.s312198.util.CommandOutput;
 import ru.itmo.p3114.s312198.util.FileHashSet;
 import ru.itmo.p3114.s312198.util.command.CommandLineProcessor;
 
@@ -46,16 +47,18 @@ public class ExecuteScript extends AbstractCommand {
      * @return Status (OK, FAILED if there is a risk of stack overflow, INCORRECT_ARGUMENTS)
      */
     @Override
-    public Status execute() {
+    public CommandOutput execute() {
         if (getArguments() == null || getArguments().size() != 1) {
-            status = Status.INCORRECT_ARGUMENTS;
-            return Status.INCORRECT_ARGUMENTS;
+            status.setStatus(Status.INCORRECT_ARGUMENTS);
+            status.setOutput(null);
+            return status;
         } else {
             if (FileHashSet.contains(arguments.get(0))) {
                 System.out.println("File \"" + arguments.get(0) + "\" cannot be executed again since it will result in stack overflow.");
                 System.out.println("Execution terminated");
-                status = Status.FAILED;
-                return Status.FAILED;
+                status.setStatus(Status.FAILED);
+                status.setOutput(null);
+                return status;
             } else {
 //                FileHashSet.add(arguments.get(0));
 //
@@ -76,8 +79,9 @@ public class ExecuteScript extends AbstractCommand {
 //                }
 //
 //                FileHashSet.remove(arguments.get(0));
-                status = Status.OK;
-                return Status.OK;
+                status.setStatus(Status.OK);
+                status.setOutput(null);
+                return status;
             }
         }
     }

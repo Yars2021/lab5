@@ -1,5 +1,7 @@
 package ru.itmo.p3114.s312198.collection;
 
+import java.io.Serializable;
+
 /**
  * Form of education enum. Supported values:
  *     UNDEFINED,
@@ -7,7 +9,7 @@ package ru.itmo.p3114.s312198.collection;
  *     FULL_TIME_EDUCATION,
  *     EVENING_CLASSES;
  */
-public enum FormOfEducation {
+public enum FormOfEducation implements Serializable {
     UNDEFINED,
     DISTANCE_EDUCATION,
     FULL_TIME_EDUCATION,

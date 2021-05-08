@@ -2,6 +2,7 @@ package ru.itmo.p3114.s312198.util.command.actions;
 
 import ru.itmo.p3114.s312198.collection.Person;
 import ru.itmo.p3114.s312198.collection.StudyGroup;
+import ru.itmo.p3114.s312198.util.CommandOutput;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -42,12 +43,14 @@ public class PrintFieldAscendingGroupAdmin extends AbstractCommand {
      * @return Status
      */
     @Override
-    public Status execute() {
+    public CommandOutput execute() {
         if (getArguments() != null) {
-            status = Status.INCORRECT_ARGUMENTS;
-            return Status.INCORRECT_ARGUMENTS;
+            status.setStatus(Status.INCORRECT_ARGUMENTS);
+            status.setOutput(null);
+            return status;
         } else {
             LinkedList<Person> admins = new LinkedList<>();
+            ArrayList<String> output = new ArrayList<>();
 
             for (StudyGroup studyGroup : studyGroups) {
                 if (studyGroup.getGroupAdmin() != null) {
@@ -56,20 +59,21 @@ public class PrintFieldAscendingGroupAdmin extends AbstractCommand {
             }
 
             if (admins.isEmpty()) {
-                System.out.println("No group admins found");
-                status = Status.OK;
-                return Status.OK;
+                output.add("No group admins found");
+                status.setStatus(Status.OK);
+                return status;
             } else {
                 admins.sort(Comparator.naturalOrder());
 
                 for (Person person : admins) {
-                    System.out.println(person.toReadableLine());
-                    System.out.println();
+                    output.add(person.toReadableLine());
+                    output.add("");
                 }
             }
 
-            status = Status.OK;
-            return Status.OK;
+            status.setStatus(Status.OK);
+            status.setOutput(output);
+            return status;
         }
     }
 }

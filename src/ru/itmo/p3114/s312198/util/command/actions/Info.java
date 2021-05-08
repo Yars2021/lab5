@@ -1,6 +1,7 @@
 package ru.itmo.p3114.s312198.util.command.actions;
 
 import ru.itmo.p3114.s312198.collection.StudyGroup;
+import ru.itmo.p3114.s312198.util.CommandOutput;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -39,27 +40,31 @@ public class Info extends AbstractCommand {
      * @return Status
      */
     @Override
-    public Status execute() {
+    public CommandOutput execute() {
         if (getArguments() != null) {
-            status = Status.INCORRECT_ARGUMENTS;
-            return Status.INCORRECT_ARGUMENTS;
+            status.setStatus(Status.INCORRECT_ARGUMENTS);
+            status.setOutput(null);
+            return status;
         } else {
             if (studyGroups == null) {
-                status = Status.FAILED;
-                return Status.FAILED;
+                status.setStatus(Status.FAILED);
+                status.setOutput(null);
+                return status;
             } else {
-                System.out.println("Collection type: Linked hash set of study groups");
-                System.out.println("Size: " + studyGroups.size());
+                ArrayList<String> output = new ArrayList<>();
+                output.add("Collection type: Linked hash set of study groups");
+                output.add("Size: " + studyGroups.size());
                 if (studyGroups.isEmpty()) {
-                    System.out.println("Collection is empty");
+                    output.add("Collection is empty");
                 } else {
-                    System.out.println("Elements in CSV format: ");
+                    output.add("Elements in CSV format: ");
                     for (StudyGroup studyGroup : studyGroups) {
-                        System.out.println(studyGroup.toCSVLine());
+                        output.add(studyGroup.toCSVLine());
                     }
                 }
-                status = Status.OK;
-                return Status.OK;
+                status.setStatus(Status.OK);
+                status.setOutput(output);
+                return status;
             }
         }
     }

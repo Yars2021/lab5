@@ -1,5 +1,7 @@
 package ru.itmo.p3114.s312198.util.command.actions;
 
+import ru.itmo.p3114.s312198.util.CommandOutput;
+
 import java.util.ArrayList;
 
 /**
@@ -26,10 +28,11 @@ public class Help extends AbstractCommand {
      * @return Status
      */
     @Override
-    public Status execute() {
+    public CommandOutput execute() {
         if (getArguments() != null) {
-            status = Status.INCORRECT_ARGUMENTS;
-            return Status.INCORRECT_ARGUMENTS;
+            status.setStatus(Status.INCORRECT_ARGUMENTS);
+            status.setOutput(null);
+            return status;
         } else {
             System.out.println("=============================================================================================================");
             System.out.println("                     Command reference page. {arg} means that arg is a complex argument                      ");
@@ -51,8 +54,9 @@ public class Help extends AbstractCommand {
             System.out.println("remove_any_by_transferred_students transferredStudents: Removes one element by it's transferredStudents value");
             System.out.println("print_field_ascending_group_admin: Prints all admins sorted from the smallest to the biggest");
             System.out.println("=============================================================================================================");
-            status = Status.OK;
-            return Status.OK;
+            status.setStatus(Status.OK);
+            status.setOutput(null);
+            return status;
         }
     }
 }

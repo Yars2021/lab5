@@ -1,10 +1,12 @@
 package ru.itmo.p3114.s312198.collection;
 
+import java.io.Serializable;
+
 /**
  * Person class.
  * Describes StudyGroup`s admin
  */
-public class Person implements Comparable<Person> {
+public class Person implements Serializable, Comparable<Person> {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private long height; //Значение поля должно быть больше 0
     private Color hairColor; //Поле может быть null

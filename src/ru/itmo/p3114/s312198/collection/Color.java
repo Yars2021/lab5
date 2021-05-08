@@ -1,5 +1,7 @@
 package ru.itmo.p3114.s312198.collection;
 
+import java.io.Serializable;
+
 /**
  * Color enum. Supported values:
  *     UNDEFINED,
@@ -8,7 +10,7 @@ package ru.itmo.p3114.s312198.collection;
  *     RED,
  *     WHITE;
  */
-public enum Color {
+public enum Color implements Serializable {
     UNDEFINED,
     BLACK,
     BROWN,

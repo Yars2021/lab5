@@ -1,8 +1,10 @@
 package ru.itmo.p3114.s312198.util.command.actions;
 
 import ru.itmo.p3114.s312198.collection.StudyGroup;
+import ru.itmo.p3114.s312198.util.CommandOutput;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 /**
@@ -39,21 +41,24 @@ public class RemoveByID extends AbstractCommand {
      * @return Status (OK, FAILED if the element does not exist, INCORRECT_ARGUMENTS)
      */
     @Override
-    public Status execute() {
+    public CommandOutput execute() {
         if (getArguments() == null || getArguments().size() != 1) {
-            status = Status.INCORRECT_ARGUMENTS;
-            return Status.INCORRECT_ARGUMENTS;
+            status.setStatus(Status.INCORRECT_ARGUMENTS);
+            status.setOutput(null);
+            return status;
         } else {
             for (StudyGroup studyGroup : studyGroups) {
                 if (studyGroup.getId() == Long.parseLong(getArguments().get(0))) {
                     studyGroups.remove(studyGroup);
-                    status = Status.OK;
-                    return Status.OK;
+                    status.setStatus(Status.OK);
+                    status.setOutput(null);
+                    return status;
                 }
             }
 
-            status = Status.FAILED;
-            return Status.FAILED;
+            status.setStatus(Status.FAILED);
+            status.setOutput(null);
+            return status;
         }
     }
 }

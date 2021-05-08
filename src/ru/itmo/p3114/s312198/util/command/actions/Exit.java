@@ -1,5 +1,7 @@
 package ru.itmo.p3114.s312198.util.command.actions;
 
+import ru.itmo.p3114.s312198.util.CommandOutput;
+
 import java.util.ArrayList;
 
 /**
@@ -26,15 +28,17 @@ public class Exit extends AbstractCommand {
      * @return Status
      */
     @Override
-    public Status execute() {
+    public CommandOutput execute() {
         if (getArguments() != null) {
-            status = Status.INCORRECT_ARGUMENTS;
-            return Status.INCORRECT_ARGUMENTS;
+            status.setStatus(Status.INCORRECT_ARGUMENTS);
+            status.setOutput(null);
+            return status;
         } else {
             System.out.println("Process finished");
             System.exit(0);
-            status = Status.OK;
-            return Status.OK;
+            status.setStatus(Status.OK);
+            status.setOutput(null);
+            return status;
         }
     }
 }

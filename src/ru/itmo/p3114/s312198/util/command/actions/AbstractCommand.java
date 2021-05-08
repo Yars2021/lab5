@@ -1,7 +1,11 @@
 package ru.itmo.p3114.s312198.util.command.actions;
 
+import ru.itmo.p3114.s312198.collection.StudyGroup;
+import ru.itmo.p3114.s312198.util.CommandOutput;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 /**
  * Abstract command class.
@@ -9,7 +13,8 @@ import java.util.ArrayList;
 abstract public class AbstractCommand implements Serializable {
     protected String command = "";
     protected ArrayList<String> arguments;
-    protected Status status = Status.UNDEFINED;
+    protected CommandOutput status = new CommandOutput(Status.UNDEFINED, null);
+    protected LinkedHashSet<StudyGroup> studyGroups;
 
     /**
      * Creates an empty instance of AbstractCommand
@@ -27,6 +32,10 @@ abstract public class AbstractCommand implements Serializable {
         this.arguments = arguments;
     }
 
+    public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {
+        this.studyGroups = studyGroups;
+    }
+
     /**
      * @return Command name
      */
@@ -37,7 +46,7 @@ abstract public class AbstractCommand implements Serializable {
     /**
      * @return Status
      */
-    public Status getStatus() {
+    public CommandOutput getStatusOut() {
         return status;
     }
 
@@ -68,5 +77,5 @@ abstract public class AbstractCommand implements Serializable {
      * Executes the command
      * @return Status
      */
-    abstract public Status execute();
+    abstract public CommandOutput execute();
 }

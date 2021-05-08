@@ -1,5 +1,7 @@
 package ru.itmo.p3114.s312198.collection;
 
+import java.io.Serializable;
+
 /**
  * Country enum. Supported values:
  *     UNDEFINED,
@@ -15,7 +17,7 @@ package ru.itmo.p3114.s312198.collection;
  *     VIETNAM,
  *     ZIMBABWE;
  */
-public enum Country {
+public enum Country implements Serializable {
     UNDEFINED,
     AUSTRALIA,
     BELARUS,

@@ -77,6 +77,7 @@ public class CommandLineProcessor {
             case HELP:
                 currentCommand = new Help();
                 currentCommand.execute();
+                currentCommand = null;
                 break;
             case INFO:
                 currentCommand = new Info(null);
@@ -118,6 +119,7 @@ public class CommandLineProcessor {
                     System.out.println("Incorrect input, no argument found");
                 }
                 currentCommand = new Save(arguments, null);
+                currentCommand = null;
                 break;
             case EXECUTE_SCRIPT:
                 arguments = new ArrayList<>();
@@ -131,6 +133,7 @@ public class CommandLineProcessor {
             case EXIT:
                 currentCommand = new Exit();
                 currentCommand.execute();
+                currentCommand = null;
                 break;
             case ADD_IF_MAX:
                 arguments = requestElement(suppressOutput);
@@ -142,7 +145,6 @@ public class CommandLineProcessor {
                 break;
             case HISTORY:
                 currentCommand = new History(history);
-                currentCommand.execute();
                 break;
             case REMOVE_ALL_BY_SHOULD_BE_EXPELLED:
                 arguments = new ArrayList<>();
@@ -217,6 +219,7 @@ public class CommandLineProcessor {
             case HELP:
                 currentCommand = new Help();
                 currentCommand.execute();
+                currentCommand = null;
                 break;
             case INFO:
                 currentCommand = new Info(null);
@@ -261,6 +264,7 @@ public class CommandLineProcessor {
                     System.out.println("Incorrect input, no argument found");
                 }
                 currentCommand = new Save(arguments, null);
+                currentCommand = null;
                 break;
             case EXECUTE_SCRIPT:
                 arguments = new ArrayList<>();
@@ -274,6 +278,7 @@ public class CommandLineProcessor {
             case EXIT:
                 currentCommand = new Exit();
                 currentCommand.execute();
+                currentCommand = null;
                 break;
             case ADD_IF_MAX:
                 arguments = new ArrayList<>();
@@ -295,7 +300,6 @@ public class CommandLineProcessor {
                 break;
             case HISTORY:
                 currentCommand = new History(history);
-                currentCommand.execute();
                 break;
             case REMOVE_ALL_BY_SHOULD_BE_EXPELLED:
                 arguments = new ArrayList<>();

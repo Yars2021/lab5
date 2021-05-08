@@ -4,6 +4,7 @@ import ru.itmo.p3114.s312198.collection.Location;
 import ru.itmo.p3114.s312198.collection.Person;
 import ru.itmo.p3114.s312198.collection.StudyGroup;
 import ru.itmo.p3114.s312198.exception.ValueOutOfBoundsException;
+import ru.itmo.p3114.s312198.util.CommandOutput;
 import ru.itmo.p3114.s312198.util.LocationBuilder;
 import ru.itmo.p3114.s312198.util.PersonBuilder;
 import ru.itmo.p3114.s312198.util.StudyGroupBuilder;
@@ -45,10 +46,11 @@ public class AddIfMax extends AbstractCommand {
      * @return Status (OK, FAILED if the element already exists or there are values out of bounds, INCORRECT_ARGUMENTS)
      */
     @Override
-    public Status execute() {
+    public CommandOutput execute() {
         if (getArguments() == null || (arguments.size() != 12 && arguments.size() != 10 && arguments.size() != 6)) {
-            status = Status.INCORRECT_ARGUMENTS;
-            return Status.INCORRECT_ARGUMENTS;
+            status.setStatus(Status.INCORRECT_ARGUMENTS);
+            status.setOutput(null);
+            return status;
         } else {
             Location location = null;
             Person admin = null;
@@ -82,24 +84,28 @@ public class AddIfMax extends AbstractCommand {
                         .addGroupAdmin(admin)
                         .toStudyGroup();
             } catch (ValueOutOfBoundsException voob) {
-                status = Status.FAILED;
-                return Status.FAILED;
+                status.setStatus(Status.FAILED);
+                status.setOutput(null);
+                return status;
             }
 
             for (StudyGroup sg : studyGroups) {
                 if (sg.compareTo(studyGroup) > 0) {
-                    status = Status.OK;
-                    return Status.OK;
+                    status.setStatus(Status.OK);
+                    status.setOutput(null);
+                    return status;
                 }
             }
 
             if (studyGroups.contains(studyGroup)) {
-                status = Status.FAILED;
-                return Status.FAILED;
+                status.setStatus(Status.FAILED);
+                status.setOutput(null);
+                return status;
             } else {
                 studyGroups.add(studyGroup);
-                status = Status.OK;
-                return Status.OK;
+                status.setStatus(Status.OK);
+                status.setOutput(null);
+                return status;
             }
         }
     }

@@ -1,10 +1,12 @@
 package ru.itmo.p3114.s312198.collection;
 
+import java.io.Serializable;
+
 /**
  * Location class.
  * Describes any person`s location
  */
-public class Location {
+public class Location implements Serializable {
     private float x;
     private float y;
     private float z;
