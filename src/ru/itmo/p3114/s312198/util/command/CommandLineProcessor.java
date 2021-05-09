@@ -24,6 +24,10 @@ import ru.itmo.p3114.s312198.util.command.actions.Save;
 import ru.itmo.p3114.s312198.util.command.actions.Show;
 import ru.itmo.p3114.s312198.util.command.actions.Update;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -123,11 +127,23 @@ public class CommandLineProcessor {
                 break;
             case EXECUTE_SCRIPT:
                 arguments = new ArrayList<>();
+                List<String> lines;
+                String filename = "";
                 try {
-                    arguments.add(line.split("\\s")[1].trim());
+                    filename = line.split("\\s")[1].trim();
                 } catch (ArrayIndexOutOfBoundsException aioob) {
                     System.out.println("Incorrect input, no argument found");
                 }
+
+                arguments.add(filename);
+
+                try {
+                    lines = Files.readAllLines(Paths.get(filename), StandardCharsets.UTF_8);
+                    arguments.addAll(lines);
+                } catch (IOException e) {
+                    System.out.println("File cannot be read");
+                }
+
                 currentCommand = new ExecuteScript(arguments, null);
                 break;
             case EXIT:
@@ -211,7 +227,7 @@ public class CommandLineProcessor {
             return null;
         }
 
-        System.out.println("> " + lines.get(index).split("\\s")[0].substring(1) + ": ");
+        System.out.println("> Current file command: " + lines.get(index).split("\\s")[0].substring(1) + ": ");
 
         AbstractCommand currentCommand = null;
 
@@ -268,11 +284,24 @@ public class CommandLineProcessor {
                 break;
             case EXECUTE_SCRIPT:
                 arguments = new ArrayList<>();
+                List<String> fileLines;
+                String filename = "";
+
                 try {
-                    arguments.add(lines.get(index).split("\\s")[1].trim());
+                    filename = lines.get(index).split("\\s")[1].trim();
                 } catch (ArrayIndexOutOfBoundsException aioob) {
                     System.out.println("Incorrect input, no argument found");
                 }
+
+                arguments.add(filename);
+
+                try {
+                    lines = Files.readAllLines(Paths.get(filename), StandardCharsets.UTF_8);
+                    arguments.addAll(lines);
+                } catch (IOException e) {
+                    System.out.println("File cannot be read");
+                }
+
                 currentCommand = new ExecuteScript(arguments, null);
                 break;
             case EXIT:

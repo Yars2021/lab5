@@ -48,39 +48,44 @@ public class ExecuteScript extends AbstractCommand {
      */
     @Override
     public CommandOutput execute() {
-        if (getArguments() == null || getArguments().size() != 1) {
+        if (getArguments() == null || getArguments().size() == 0) {
             status.setStatus(Status.INCORRECT_ARGUMENTS);
             status.setOutput(null);
             return status;
         } else {
+            ArrayList<String> output = new ArrayList<>();
+
             if (FileHashSet.contains(arguments.get(0))) {
-                System.out.println("File \"" + arguments.get(0) + "\" cannot be executed again since it will result in stack overflow.");
-                System.out.println("Execution terminated");
+                output.add("File \"" + arguments.get(0) + "\" cannot be executed again since it will result in stack overflow.");
+                output.add("Execution terminated");
                 status.setStatus(Status.FAILED);
-                status.setOutput(null);
+                status.setOutput(output);
                 return status;
             } else {
-//                FileHashSet.add(arguments.get(0));
-//
-//                CommandLineProcessor commandLineProcessor = new CommandLineProcessor(studyGroups);
-//
-//                List<String> lines;
-//                try {
-//                    lines = Files.readAllLines(Paths.get(arguments.get(0)), StandardCharsets.UTF_8);
-//                } catch (IOException e) {
-//                    status = Status.FAILED;
-//                    return Status.FAILED;
-//                }
-//
-//                for (int i = 0; i < lines.size(); i++) {
-//                    if (lines.get(i).startsWith(":")) {
-//                        commandLineProcessor.parseFileInput(lines, i);
-//                    }
-//                }
-//
-//                FileHashSet.remove(arguments.get(0));
+                FileHashSet.add(arguments.get(0));
+                CommandLineProcessor commandLineProcessor = new CommandLineProcessor();
+                ArrayList<AbstractCommand> commandsToExecute = new ArrayList<>();
+
+                for (int i = 1; i < arguments.size(); i++) {
+                    if (arguments.get(i).startsWith(":")) {
+                        AbstractCommand command = commandLineProcessor.parseFileInput(arguments, i);
+                        if (command != null) {
+                            commandsToExecute.add(command);
+                        }
+                    }
+                }
+
+                for (AbstractCommand command : commandsToExecute) {
+                    command.setTargetCollection(studyGroups);
+                    CommandOutput commandOutput = command.execute();
+                    if (commandOutput != null && commandOutput.getOutput() != null) {
+                        output.addAll(commandOutput.getOutput());
+                    }
+                }
+
+                FileHashSet.remove(arguments.get(0));
                 status.setStatus(Status.OK);
-                status.setOutput(null);
+                status.setOutput(output);
                 return status;
             }
         }
