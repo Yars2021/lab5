@@ -80,8 +80,6 @@ public class CommandLineProcessor {
         switch (command) {
             case HELP:
                 currentCommand = new Help();
-                currentCommand.execute();
-                currentCommand = null;
                 break;
             case INFO:
                 currentCommand = new Info(null);
@@ -234,8 +232,6 @@ public class CommandLineProcessor {
         switch (command) {
             case HELP:
                 currentCommand = new Help();
-                currentCommand.execute();
-                currentCommand = null;
                 break;
             case INFO:
                 currentCommand = new Info(null);
