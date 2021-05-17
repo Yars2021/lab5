@@ -15,9 +15,7 @@ import ru.itmo.p3114.s312198.util.command.actions.Exit;
 import ru.itmo.p3114.s312198.util.command.actions.Help;
 import ru.itmo.p3114.s312198.util.command.actions.History;
 import ru.itmo.p3114.s312198.util.command.actions.Info;
-import ru.itmo.p3114.s312198.util.command.actions.Login;
 import ru.itmo.p3114.s312198.util.command.actions.PrintFieldAscendingGroupAdmin;
-import ru.itmo.p3114.s312198.util.command.actions.Register;
 import ru.itmo.p3114.s312198.util.command.actions.RemoveAllByShouldBeExpelled;
 import ru.itmo.p3114.s312198.util.command.actions.RemoveAnyByTransferredStudents;
 import ru.itmo.p3114.s312198.util.command.actions.RemoveByID;
@@ -198,12 +196,6 @@ public class CommandLineProcessor {
                 break;
             case PRINT_FIELD_ASCENDING_GROUP_ADMIN:
                 currentCommand = new PrintFieldAscendingGroupAdmin(null);
-                break;
-            case LOGIN:
-                currentCommand = new Login();
-                break;
-            case REGISTER:
-                currentCommand = new Register();
                 break;
         }
 

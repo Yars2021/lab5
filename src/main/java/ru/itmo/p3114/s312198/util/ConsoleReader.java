@@ -17,7 +17,7 @@ public class ConsoleReader {
     public static String readLine() {
         try {
             return bufferedReader.readLine();
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
         return "";
