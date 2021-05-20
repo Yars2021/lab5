@@ -6,6 +6,7 @@ import ru.itmo.p3114.s312198.collection.FormOfEducation;
 import ru.itmo.p3114.s312198.exception.ValueOutOfBoundsException;
 import ru.itmo.p3114.s312198.util.ConsoleReader;
 import ru.itmo.p3114.s312198.util.FieldParser;
+import ru.itmo.p3114.s312198.util.FileHashSet;
 import ru.itmo.p3114.s312198.util.command.actions.AbstractCommand;
 import ru.itmo.p3114.s312198.util.command.actions.Add;
 import ru.itmo.p3114.s312198.util.command.actions.AddIfMax;
@@ -15,6 +16,7 @@ import ru.itmo.p3114.s312198.util.command.actions.Exit;
 import ru.itmo.p3114.s312198.util.command.actions.Help;
 import ru.itmo.p3114.s312198.util.command.actions.History;
 import ru.itmo.p3114.s312198.util.command.actions.Info;
+import ru.itmo.p3114.s312198.util.command.actions.Message;
 import ru.itmo.p3114.s312198.util.command.actions.PrintFieldAscendingGroupAdmin;
 import ru.itmo.p3114.s312198.util.command.actions.RemoveAllByShouldBeExpelled;
 import ru.itmo.p3114.s312198.util.command.actions.RemoveAnyByTransferredStudents;
@@ -125,22 +127,14 @@ public class CommandLineProcessor {
                 break;
             case EXECUTE_SCRIPT:
                 arguments = new ArrayList<>();
-                List<String> lines;
                 String filename = "";
                 try {
                     filename = line.split("\\s")[1].trim();
                 } catch (ArrayIndexOutOfBoundsException aioob) {
                     System.out.println("Incorrect input, no argument found");
                 }
-
                 arguments.add(filename);
-
-                try {
-                    lines = Files.readAllLines(Paths.get(filename), StandardCharsets.UTF_8);
-                    arguments.addAll(lines);
-                } catch (IOException e) {
-                    System.out.println("File cannot be read");
-                }
+                arguments.addAll(extractScript(filename));
 
                 currentCommand = new ExecuteScript(arguments, null);
                 break;
@@ -197,6 +191,11 @@ public class CommandLineProcessor {
             case PRINT_FIELD_ASCENDING_GROUP_ADMIN:
                 currentCommand = new PrintFieldAscendingGroupAdmin(null);
                 break;
+            case MSG:
+                arguments = new ArrayList<>();
+                arguments.add(line.substring(4));
+                currentCommand = new Message(arguments);
+                break;
         }
 
         history.addLast(currentCommand);
@@ -205,6 +204,36 @@ public class CommandLineProcessor {
         }
 
         return currentCommand;
+    }
+
+    private ArrayList<String> extractScript(String filename) {
+        ArrayList<String> result = new ArrayList<>();
+        List<String> lines;
+
+        try {
+            ArrayList<String> expandedLines = new ArrayList<>();
+            lines = Files.readAllLines(Paths.get(filename), StandardCharsets.UTF_8);
+            for (String current : lines) {
+                String[] split = current.trim().toUpperCase(Locale.ROOT).split("\\s");
+                if (Commands.valueOf(split[0]) == Commands.EXECUTE_SCRIPT) {
+                    if (FileHashSet.contains(split[1])) {
+                        expandedLines.add("msg File \"" + filename + "\" cannot be executed again since it will result in stack overflow.");
+                        expandedLines.add("msg Execution terminated");
+                    } else {
+                        FileHashSet.add(split[1]);
+                        expandedLines.addAll(extractScript(split[1]));
+                        FileHashSet.remove(split[1]);
+                    }
+                } else {
+                    expandedLines.add(current);
+                }
+            }
+            result.addAll(expandedLines);
+        } catch (IOException e) {
+            System.out.println("File \"" + filename + "\" cannot be read");
+        }
+
+        return result;
     }
 
     /**
