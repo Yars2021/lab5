@@ -32,13 +32,12 @@ public class Exit extends AbstractCommand {
         if (getArguments() != null) {
             status.setStatus(Status.INCORRECT_ARGUMENTS);
             status.setOutput(null);
-            return status;
         } else {
-            System.out.println("Process finished");
-            System.exit(0);
+            ArrayList<String> output = new ArrayList<>();
             status.setStatus(Status.OK);
-            status.setOutput(null);
-            return status;
+            output.add("Process finished");
+            status.setOutput(output);
         }
+        return status;
     }
 }
