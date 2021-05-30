@@ -1,6 +1,7 @@
 package ru.itmo.p3114.s312198.command.actions;
 
 import ru.itmo.p3114.s312198.collection.StudyGroup;
+import ru.itmo.p3114.s312198.command.CollectionInteracting;
 import ru.itmo.p3114.s312198.command.CommandOutput;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.LinkedHashSet;
 /**
  * Shows some information about the collection
  */
-public class Info extends AbstractCommand {
+public class Info extends AbstractCommand implements CollectionInteracting {
     private LinkedHashSet<StudyGroup> studyGroups;
 
     /**

@@ -1,6 +1,7 @@
 package ru.itmo.p3114.s312198.command.actions;
 
 import ru.itmo.p3114.s312198.collection.StudyGroup;
+import ru.itmo.p3114.s312198.command.CollectionInteracting;
 import ru.itmo.p3114.s312198.command.CommandOutput;
 import ru.itmo.p3114.s312198.util.FileHashSet;
 import ru.itmo.p3114.s312198.command.CommandLineProcessor;
@@ -11,7 +12,7 @@ import java.util.LinkedHashSet;
 /**
  * Executes a script of these commands
  */
-public class ExecuteScript extends AbstractCommand {
+public class ExecuteScript extends AbstractCommand implements CollectionInteracting {
     private LinkedHashSet<StudyGroup> studyGroups;
 
     /**

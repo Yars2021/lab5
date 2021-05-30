@@ -1,6 +1,7 @@
 package ru.itmo.p3114.s312198.command.actions;
 
 import ru.itmo.p3114.s312198.collection.StudyGroup;
+import ru.itmo.p3114.s312198.command.CollectionInteracting;
 import ru.itmo.p3114.s312198.command.CommandOutput;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.LinkedHashSet;
 /**
  * Removes an element with current transferredStudents value
  */
-public class RemoveAnyByTransferredStudents extends AbstractCommand {
+public class RemoveAnyByTransferredStudents extends AbstractCommand implements CollectionInteracting {
     private LinkedHashSet<StudyGroup> studyGroups;
 
     /**

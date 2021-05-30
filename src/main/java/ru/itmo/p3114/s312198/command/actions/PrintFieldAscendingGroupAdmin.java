@@ -2,6 +2,7 @@ package ru.itmo.p3114.s312198.command.actions;
 
 import ru.itmo.p3114.s312198.collection.Person;
 import ru.itmo.p3114.s312198.collection.StudyGroup;
+import ru.itmo.p3114.s312198.command.CollectionInteracting;
 import ru.itmo.p3114.s312198.command.CommandOutput;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.LinkedList;
 /**
  * Prints all the group admins sorted from the smallest to the biggest value
  */
-public class PrintFieldAscendingGroupAdmin extends AbstractCommand {
+public class PrintFieldAscendingGroupAdmin extends AbstractCommand implements CollectionInteracting {
     private LinkedHashSet<StudyGroup> studyGroups;
 
     /**

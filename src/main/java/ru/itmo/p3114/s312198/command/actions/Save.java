@@ -10,6 +10,7 @@ import java.util.LinkedHashSet;
 /**
  * Saves the collection
  */
+@Deprecated
 public class Save extends AbstractCommand {
     private LinkedHashSet<StudyGroup> studyGroups;
 
