@@ -248,13 +248,10 @@ public class CommandLineProcessor {
         Commands command;
 
         try {
-            command = Commands.valueOf(lines.get(index).toUpperCase(Locale.ROOT).split("\\s")[0].substring(1, lines.get(index).split("\\s")[0].length()));
+            command = Commands.valueOf(lines.get(index).toUpperCase(Locale.ROOT).split("\\s")[0]);
         } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException iae) {
-            System.out.println("Unknown command: " + lines.get(index).split("\\s")[0]);
             return null;
         }
-
-        System.out.println("> Current file command: " + lines.get(index).split("\\s")[0].substring(1) + ": ");
 
         AbstractCommand currentCommand = null;
 

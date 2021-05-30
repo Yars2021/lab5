@@ -62,11 +62,9 @@ public class ExecuteScript extends AbstractCommand {
                 ArrayList<AbstractCommand> commandsToExecute = new ArrayList<>();
 
                 for (int i = 1; i < arguments.size(); i++) {
-                    if (arguments.get(i).startsWith(":")) {
-                        AbstractCommand command = commandLineProcessor.parseFileInput(arguments, i);
-                        if (command != null) {
-                            commandsToExecute.add(command);
-                        }
+                    AbstractCommand command = commandLineProcessor.parseFileInput(arguments, i);
+                    if (command != null) {
+                        commandsToExecute.add(command);
                     }
                 }
 
