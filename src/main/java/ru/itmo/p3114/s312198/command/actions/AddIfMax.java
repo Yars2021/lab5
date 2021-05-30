@@ -1,10 +1,10 @@
-package ru.itmo.p3114.s312198.util.command.actions;
+package ru.itmo.p3114.s312198.command.actions;
 
 import ru.itmo.p3114.s312198.collection.Location;
 import ru.itmo.p3114.s312198.collection.Person;
 import ru.itmo.p3114.s312198.collection.StudyGroup;
 import ru.itmo.p3114.s312198.exception.ValueOutOfBoundsException;
-import ru.itmo.p3114.s312198.util.CommandOutput;
+import ru.itmo.p3114.s312198.command.CommandOutput;
 import ru.itmo.p3114.s312198.util.LocationBuilder;
 import ru.itmo.p3114.s312198.util.PersonBuilder;
 import ru.itmo.p3114.s312198.util.StudyGroupBuilder;
@@ -13,27 +13,27 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 /**
- * Removes all the elements, greater than current
+ * Adds a new element to the collection, but only if it`s the greatest
  */
-public class RemoveGreater extends AbstractCommand {
+public class AddIfMax extends AbstractCommand {
     private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
-     * Creates an instance of RemoveGreater command
-     * @param studyGroups The collection it`s working with
+     * Creates a new instance of AddIfMax command
+     * @param studyGroups The collection, it`s working with
      */
-    public RemoveGreater(LinkedHashSet<StudyGroup> studyGroups) {
-        setCommand("remove_greater");
+    public AddIfMax(LinkedHashSet<StudyGroup> studyGroups) {
+        setCommand("add_if_max");
         this.studyGroups = studyGroups;
     }
 
     /**
-     * Creates an instance of RemoveGreater command
+     * Creates a new instance of AddIfMax command
      * @param arguments Arguments
-     * @param studyGroups The collection it`s working with
+     * @param studyGroups The collection, it`s working with
      */
-    public RemoveGreater(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
-        super("remove_greater", arguments);
+    public AddIfMax(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
+        super("add_if_max", arguments);
         this.studyGroups = studyGroups;
     }
 
@@ -42,8 +42,8 @@ public class RemoveGreater extends AbstractCommand {
     }
 
     /**
-     * Executes the RemoveGreater command
-     * @return Status
+     * Executes the AddIfMax command
+     * @return Status (OK, FAILED if the element already exists or there are values out of bounds, INCORRECT_ARGUMENTS)
      */
     @Override
     public CommandOutput execute() {
@@ -52,11 +52,11 @@ public class RemoveGreater extends AbstractCommand {
             status.setOutput(null);
             return status;
         } else {
+            Location location = null;
+            Person admin = null;
             StudyGroup studyGroup;
-            try {
-                Location location = null;
-                Person admin = null;
 
+            try {
                 if (arguments.size() > 6) {
                     if (arguments.size() > 10) {
                         location = new LocationBuilder()
@@ -83,16 +83,30 @@ public class RemoveGreater extends AbstractCommand {
                         .addFormOfEducation(arguments.get(5))
                         .addGroupAdmin(admin)
                         .toStudyGroup();
-
-                studyGroups.removeIf(sg -> sg.compareTo(studyGroup) < 0);
             } catch (ValueOutOfBoundsException voob) {
                 status.setStatus(Status.FAILED);
                 status.setOutput(null);
                 return status;
             }
-            status.setStatus(Status.OK);
-            status.setOutput(null);
-            return status;
+
+            for (StudyGroup sg : studyGroups) {
+                if (sg.compareTo(studyGroup) > 0) {
+                    status.setStatus(Status.OK);
+                    status.setOutput(null);
+                    return status;
+                }
+            }
+
+            if (studyGroups.contains(studyGroup)) {
+                status.setStatus(Status.FAILED);
+                status.setOutput(null);
+                return status;
+            } else {
+                studyGroups.add(studyGroup);
+                status.setStatus(Status.OK);
+                status.setOutput(null);
+                return status;
+            }
         }
     }
 }

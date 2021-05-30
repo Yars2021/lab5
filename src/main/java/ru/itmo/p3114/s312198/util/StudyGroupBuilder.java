@@ -18,6 +18,11 @@ public class StudyGroupBuilder {
         studyGroup = new StudyGroup();
     }
 
+    public StudyGroupBuilder addId(long id) {
+        studyGroup.setId(id);
+        return this;
+    }
+
     public StudyGroupBuilder addName(String name) {
         studyGroup.setName(FieldParser.parseName(name));
         return this;

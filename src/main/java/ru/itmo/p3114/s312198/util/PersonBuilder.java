@@ -16,6 +16,11 @@ public class PersonBuilder {
         person = new Person();
     }
 
+    public PersonBuilder addId(long id) {
+        person.setId(id);
+        return this;
+    }
+
     public PersonBuilder addName(String name) {
         person.setName(FieldParser.parseName(name));
         return this;

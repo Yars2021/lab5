@@ -1,7 +1,7 @@
-package ru.itmo.p3114.s312198.util.command.actions;
+package ru.itmo.p3114.s312198.command.actions;
 
 import ru.itmo.p3114.s312198.collection.StudyGroup;
-import ru.itmo.p3114.s312198.util.CommandOutput;
+import ru.itmo.p3114.s312198.command.CommandOutput;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;

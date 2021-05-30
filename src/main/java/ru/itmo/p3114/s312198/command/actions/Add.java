@@ -1,10 +1,10 @@
-package ru.itmo.p3114.s312198.util.command.actions;
+package ru.itmo.p3114.s312198.command.actions;
 
 import ru.itmo.p3114.s312198.collection.Location;
 import ru.itmo.p3114.s312198.collection.Person;
 import ru.itmo.p3114.s312198.collection.StudyGroup;
 import ru.itmo.p3114.s312198.exception.ValueOutOfBoundsException;
-import ru.itmo.p3114.s312198.util.CommandOutput;
+import ru.itmo.p3114.s312198.command.CommandOutput;
 import ru.itmo.p3114.s312198.util.LocationBuilder;
 import ru.itmo.p3114.s312198.util.PersonBuilder;
 import ru.itmo.p3114.s312198.util.StudyGroupBuilder;

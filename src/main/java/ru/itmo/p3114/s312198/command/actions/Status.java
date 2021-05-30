@@ -1,4 +1,4 @@
-package ru.itmo.p3114.s312198.util.command.actions;
+package ru.itmo.p3114.s312198.command.actions;
 
 /**
  * Command status enum. Supported values:

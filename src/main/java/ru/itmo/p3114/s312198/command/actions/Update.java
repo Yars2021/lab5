@@ -1,11 +1,13 @@
-package ru.itmo.p3114.s312198.util.command.actions;
+package ru.itmo.p3114.s312198.command.actions;
 
 import ru.itmo.p3114.s312198.collection.Location;
 import ru.itmo.p3114.s312198.collection.Person;
 import ru.itmo.p3114.s312198.collection.StudyGroup;
 import ru.itmo.p3114.s312198.exception.ValueOutOfBoundsException;
-import ru.itmo.p3114.s312198.util.CommandOutput;
+import ru.itmo.p3114.s312198.command.CommandOutput;
 import ru.itmo.p3114.s312198.util.FieldParser;
+import ru.itmo.p3114.s312198.util.LocationBuilder;
+import ru.itmo.p3114.s312198.util.PersonBuilder;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -50,7 +52,7 @@ public class Update extends AbstractCommand {
             status.setOutput(null);
             return status;
         } else {
-            Person admin = null;
+            Person admin;
             Location location = null;
             long id = Long.parseLong(getArguments().get(0));
 
@@ -66,19 +68,18 @@ public class Update extends AbstractCommand {
 
                         if (arguments.size() > 7) {
                             if (arguments.size() > 11) {
-                                location = new Location();
-
-                                location.setCoords(FieldParser.parseLocationCoords(arguments.get(11)));
-                                location.setName(FieldParser.parseName(arguments.get(12)));
+                                location = new LocationBuilder()
+                                        .addCoords(arguments.get(11))
+                                        .addName(arguments.get(12))
+                                        .toLocation();
                             }
-
-                            admin = new Person();
-
-                            admin.setName(FieldParser.parseName(arguments.get(7)));
-                            admin.setHeight(FieldParser.parseHeight(arguments.get(8)));
-                            admin.setHairColor(FieldParser.parseHairColor(arguments.get(9)));
-                            admin.setNationality(FieldParser.parseNationality(arguments.get(10)));
-                            admin.setLocation(location);
+                            admin = new PersonBuilder()
+                                    .addName(arguments.get(7))
+                                    .addHeight(arguments.get(8))
+                                    .addHairColor(arguments.get(9))
+                                    .addNationality(arguments.get(10))
+                                    .addLocation(location)
+                                    .toPerson();
 
                             sg.setGroupAdmin(admin);
                         }

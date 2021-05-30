@@ -1,4 +1,4 @@
-package ru.itmo.p3114.s312198.util.command;
+package ru.itmo.p3114.s312198.command;
 
 import ru.itmo.p3114.s312198.collection.Color;
 import ru.itmo.p3114.s312198.collection.Country;
@@ -7,24 +7,24 @@ import ru.itmo.p3114.s312198.exception.ValueOutOfBoundsException;
 import ru.itmo.p3114.s312198.util.ConsoleReader;
 import ru.itmo.p3114.s312198.util.FieldParser;
 import ru.itmo.p3114.s312198.util.FileHashSet;
-import ru.itmo.p3114.s312198.util.command.actions.AbstractCommand;
-import ru.itmo.p3114.s312198.util.command.actions.Add;
-import ru.itmo.p3114.s312198.util.command.actions.AddIfMax;
-import ru.itmo.p3114.s312198.util.command.actions.Clear;
-import ru.itmo.p3114.s312198.util.command.actions.ExecuteScript;
-import ru.itmo.p3114.s312198.util.command.actions.Exit;
-import ru.itmo.p3114.s312198.util.command.actions.Help;
-import ru.itmo.p3114.s312198.util.command.actions.History;
-import ru.itmo.p3114.s312198.util.command.actions.Info;
-import ru.itmo.p3114.s312198.util.command.actions.Message;
-import ru.itmo.p3114.s312198.util.command.actions.PrintFieldAscendingGroupAdmin;
-import ru.itmo.p3114.s312198.util.command.actions.RemoveAllByShouldBeExpelled;
-import ru.itmo.p3114.s312198.util.command.actions.RemoveAnyByTransferredStudents;
-import ru.itmo.p3114.s312198.util.command.actions.RemoveByID;
-import ru.itmo.p3114.s312198.util.command.actions.RemoveGreater;
-import ru.itmo.p3114.s312198.util.command.actions.Save;
-import ru.itmo.p3114.s312198.util.command.actions.Show;
-import ru.itmo.p3114.s312198.util.command.actions.Update;
+import ru.itmo.p3114.s312198.command.actions.AbstractCommand;
+import ru.itmo.p3114.s312198.command.actions.Add;
+import ru.itmo.p3114.s312198.command.actions.AddIfMax;
+import ru.itmo.p3114.s312198.command.actions.Clear;
+import ru.itmo.p3114.s312198.command.actions.ExecuteScript;
+import ru.itmo.p3114.s312198.command.actions.Exit;
+import ru.itmo.p3114.s312198.command.actions.Help;
+import ru.itmo.p3114.s312198.command.actions.History;
+import ru.itmo.p3114.s312198.command.actions.Info;
+import ru.itmo.p3114.s312198.command.actions.Message;
+import ru.itmo.p3114.s312198.command.actions.PrintFieldAscendingGroupAdmin;
+import ru.itmo.p3114.s312198.command.actions.RemoveAllByShouldBeExpelled;
+import ru.itmo.p3114.s312198.command.actions.RemoveAnyByTransferredStudents;
+import ru.itmo.p3114.s312198.command.actions.RemoveByID;
+import ru.itmo.p3114.s312198.command.actions.RemoveGreater;
+import ru.itmo.p3114.s312198.command.actions.Save;
+import ru.itmo.p3114.s312198.command.actions.Show;
+import ru.itmo.p3114.s312198.command.actions.Update;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -587,12 +587,11 @@ public class CommandLineProcessor {
      * @param lines The lines, read from file
      * @param index Current index
      * @return ArrayList of values
-     * @throws Exception Can be thrown, if the index is out of bounds
+     * @throws ArrayIndexOutOfBoundsException Can be thrown, if the index is out of bounds
      */
-    private ArrayList<String> readElement(List<String> lines, int index) throws Exception {
+    private ArrayList<String> readElement(List<String> lines, int index) throws ArrayIndexOutOfBoundsException, NullPointerException {
         ArrayList<String> args = new ArrayList<>();
         String input;
-        boolean wrong = true;
 
         args.add(FieldParser.parseName(lines.get(index + 1)));
         args.add(lines.get(index + 2));

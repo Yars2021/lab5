@@ -7,11 +7,12 @@ import java.io.Serializable;
  * Describes StudyGroup`s admin
  */
 public class Person implements Serializable, Comparable<Person> {
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private long height; //Значение поля должно быть больше 0
-    private Color hairColor; //Поле может быть null
-    private Country nationality; //Поле не может быть null
-    private Location location; //Поле может быть null
+    private long id;
+    private String name;
+    private long height;
+    private Color hairColor;
+    private Country nationality;
+    private Location location;
 
     /**
      * Creates an empty instance of Person
@@ -43,6 +44,10 @@ public class Person implements Serializable, Comparable<Person> {
         this(Name, Height, Nationality);
         hairColor = HairColor;
         location = Loc;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**
@@ -83,6 +88,10 @@ public class Person implements Serializable, Comparable<Person> {
      */
     public void setLocation(Location Loc) {
         location = Loc;
+    }
+
+    public long getId() {
+        return id;
     }
 
     /**

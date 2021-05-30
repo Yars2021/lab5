@@ -1,8 +1,8 @@
-package ru.itmo.p3114.s312198.util.command.actions;
+package ru.itmo.p3114.s312198.command.actions;
 
 import ru.itmo.p3114.s312198.collection.Person;
 import ru.itmo.p3114.s312198.collection.StudyGroup;
-import ru.itmo.p3114.s312198.util.CommandOutput;
+import ru.itmo.p3114.s312198.command.CommandOutput;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -65,10 +65,10 @@ public class PrintFieldAscendingGroupAdmin extends AbstractCommand {
             } else {
                 admins.sort(Comparator.naturalOrder());
 
-                for (Person person : admins) {
+                admins.forEach(person -> {
                     output.add(person.toReadableLine());
                     output.add("");
-                }
+                });
             }
 
             status.setStatus(Status.OK);

@@ -58,8 +58,7 @@ public class DataFileReader {
             }
 
             StudyGroup studyGroup = studyGroupBuilder.toStudyGroup();
-            IdGenerator.clearIDs();
-            studyGroup.setID(Long.parseLong(matcher.group(17)));
+            studyGroup.setId(Long.parseLong(matcher.group(17)));
 
             try {
                 studyGroup.toCSVLine();

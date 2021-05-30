@@ -1,17 +1,12 @@
-package ru.itmo.p3114.s312198.util.command.actions;
+package ru.itmo.p3114.s312198.command.actions;
 
 import ru.itmo.p3114.s312198.collection.StudyGroup;
-import ru.itmo.p3114.s312198.util.CommandOutput;
+import ru.itmo.p3114.s312198.command.CommandOutput;
 import ru.itmo.p3114.s312198.util.FileHashSet;
-import ru.itmo.p3114.s312198.util.command.CommandLineProcessor;
+import ru.itmo.p3114.s312198.command.CommandLineProcessor;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 
 /**
  * Executes a script of these commands

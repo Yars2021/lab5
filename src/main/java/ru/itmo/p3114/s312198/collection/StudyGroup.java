@@ -1,8 +1,5 @@
 package ru.itmo.p3114.s312198.collection;
 
-import ru.itmo.p3114.s312198.exception.IncorrectLineFormat;
-import ru.itmo.p3114.s312198.util.IdGenerator;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -10,15 +7,15 @@ import java.time.LocalDate;
  * Study group class
  */
 public class StudyGroup implements Serializable, Comparable<StudyGroup> {
-    private long id = IdGenerator.getNextId(); //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
-    private java.time.LocalDate creationDate = LocalDate.now(); //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private Integer studentsCount; //Значение поля должно быть больше 0, Поле может быть null
-    private int shouldBeExpelled; //Значение поля должно быть больше 0
-    private int transferredStudents; //Значение поля должно быть больше 0
-    private FormOfEducation formOfEducation; //Поле не может быть null
-    private Person groupAdmin; //Поле может быть null
+    private long id;
+    private String name;
+    private Coordinates coordinates;
+    private java.time.LocalDate creationDate = LocalDate.now();
+    private Integer studentsCount;
+    private int shouldBeExpelled;
+    private int transferredStudents;
+    private FormOfEducation formOfEducation;
+    private Person groupAdmin;
 
     /**
      * Creates an empty instance of StudyGroup
@@ -44,6 +41,10 @@ public class StudyGroup implements Serializable, Comparable<StudyGroup> {
         setTransferredStudents(ts);
         setFormOfEducation(fe);
         setGroupAdmin(ga);
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**
@@ -241,14 +242,5 @@ public class StudyGroup implements Serializable, Comparable<StudyGroup> {
     @Override
     public int compareTo(StudyGroup o) {
         return name.compareTo(o.getName());
-    }
-
-    public void setID(long id) throws IncorrectLineFormat {
-        if (!IdGenerator.checkID(id)) {
-            this.id = id;
-            IdGenerator.addId(id);
-        } else {
-            throw new IncorrectLineFormat("Invalid ID");
-        }
     }
 }

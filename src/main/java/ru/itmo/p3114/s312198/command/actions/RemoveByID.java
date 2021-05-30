@@ -1,33 +1,33 @@
-package ru.itmo.p3114.s312198.util.command.actions;
+package ru.itmo.p3114.s312198.command.actions;
 
 import ru.itmo.p3114.s312198.collection.StudyGroup;
-import ru.itmo.p3114.s312198.util.CommandOutput;
+import ru.itmo.p3114.s312198.command.CommandOutput;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 /**
- * Removes an element with current transferredStudents value
+ * Removes an element by ID
  */
-public class RemoveAnyByTransferredStudents extends AbstractCommand {
+public class RemoveByID extends AbstractCommand {
     private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
-     * Creates an instance of RemoveAnyByTransferredStudents command
+     * Creates an instance of RemoveByID command
      * @param studyGroups The collection, it`s working with
      */
-    public RemoveAnyByTransferredStudents(LinkedHashSet<StudyGroup> studyGroups) {
-        setCommand("remove_any_by_transferred_students");
+    public RemoveByID(LinkedHashSet<StudyGroup> studyGroups) {
+        setCommand("remove_by_id");
         this.studyGroups = studyGroups;
     }
 
     /**
-     * Creates an instance of RemoveAnyByTransferredStudents command
+     * Creates an instance of RemoveByID command
      * @param arguments Arguments
      * @param studyGroups The collection, it`s working with
      */
-    public RemoveAnyByTransferredStudents(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
-        super("remove_any_by_transferred_students", arguments);
+    public RemoveByID(ArrayList<String> arguments, LinkedHashSet<StudyGroup> studyGroups) {
+        super("remove_by_id", arguments);
         this.studyGroups = studyGroups;
     }
 
@@ -36,8 +36,8 @@ public class RemoveAnyByTransferredStudents extends AbstractCommand {
     }
 
     /**
-     * Executes the RemoveAnyByTransferredStudents command
-     * @return Status
+     * Executes the RemoveByID command
+     * @return Status (OK, FAILED if the element does not exist, INCORRECT_ARGUMENTS)
      */
     @Override
     public CommandOutput execute() {
@@ -47,7 +47,7 @@ public class RemoveAnyByTransferredStudents extends AbstractCommand {
             return status;
         } else {
             for (StudyGroup studyGroup : studyGroups) {
-                if (studyGroup.getTransferredStudents() == Integer.parseInt(arguments.get(0))) {
+                if (studyGroup.getId() == Long.parseLong(getArguments().get(0))) {
                     studyGroups.remove(studyGroup);
                     status.setStatus(Status.OK);
                     status.setOutput(null);
@@ -55,7 +55,7 @@ public class RemoveAnyByTransferredStudents extends AbstractCommand {
                 }
             }
 
-            status.setStatus(Status.OK);
+            status.setStatus(Status.FAILED);
             status.setOutput(null);
             return status;
         }
