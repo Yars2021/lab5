@@ -141,7 +141,6 @@ public class CommandLineProcessor {
             case EXIT:
                 currentCommand = new Exit();
                 currentCommand.execute();
-                currentCommand = null;
                 break;
             case ADD_IF_MAX:
                 arguments = requestElement(suppressOutput);
