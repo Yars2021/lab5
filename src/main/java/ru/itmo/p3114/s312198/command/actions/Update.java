@@ -3,7 +3,8 @@ package ru.itmo.p3114.s312198.command.actions;
 import ru.itmo.p3114.s312198.collection.Location;
 import ru.itmo.p3114.s312198.collection.Person;
 import ru.itmo.p3114.s312198.collection.StudyGroup;
-import ru.itmo.p3114.s312198.command.CollectionInteracting;
+import ru.itmo.p3114.s312198.command.actions.marker.CollectionInteracting;
+import ru.itmo.p3114.s312198.command.actions.marker.DatabaseInteracting;
 import ru.itmo.p3114.s312198.exception.ValueOutOfBoundsException;
 import ru.itmo.p3114.s312198.command.CommandOutput;
 import ru.itmo.p3114.s312198.util.FieldParser;
@@ -16,7 +17,7 @@ import java.util.LinkedHashSet;
 /**
  * Updates an element by ID
  */
-public class Update extends AbstractCommand implements CollectionInteracting {
+public class Update extends AbstractCommand implements CollectionInteracting, DatabaseInteracting {
     private LinkedHashSet<StudyGroup> studyGroups;
 
     /**
