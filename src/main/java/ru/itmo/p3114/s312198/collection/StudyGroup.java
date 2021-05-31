@@ -16,6 +16,7 @@ public class StudyGroup implements Serializable, Comparable<StudyGroup> {
     private int transferredStudents;
     private FormOfEducation formOfEducation;
     private Person groupAdmin;
+    private Long creator;
 
     /**
      * Creates an empty instance of StudyGroup
@@ -111,6 +112,10 @@ public class StudyGroup implements Serializable, Comparable<StudyGroup> {
         this.groupAdmin = groupAdmin;
     }
 
+    public void setCreator(Long creator) {
+        this.creator = creator;
+    }
+
     /**
      * @return ID in collection
      */
@@ -172,6 +177,10 @@ public class StudyGroup implements Serializable, Comparable<StudyGroup> {
      */
     public Person getGroupAdmin() {
         return groupAdmin;
+    }
+
+    public Long getCreator() {
+        return creator;
     }
 
     /**
