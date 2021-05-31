@@ -85,6 +85,7 @@ public class AddIfMax extends AbstractCommand implements CollectionInteracting, 
                         .addFormOfEducation(arguments.get(5))
                         .addGroupAdmin(admin)
                         .toStudyGroup();
+                studyGroup.setId(id);
             } catch (ValueOutOfBoundsException voob) {
                 status.setStatus(Status.FAILED);
                 status.setOutput(null);

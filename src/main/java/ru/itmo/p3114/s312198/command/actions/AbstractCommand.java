@@ -15,6 +15,7 @@ abstract public class AbstractCommand implements Serializable {
     protected ArrayList<String> arguments;
     protected CommandOutput status = new CommandOutput(Status.UNDEFINED, null);
     protected LinkedHashSet<StudyGroup> studyGroups;
+    protected long id;
 
     /**
      * Creates an empty instance of AbstractCommand
@@ -30,6 +31,10 @@ abstract public class AbstractCommand implements Serializable {
     public AbstractCommand(String command, ArrayList<String> arguments) {
         this.command = command;
         this.arguments = arguments;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setTargetCollection(LinkedHashSet<StudyGroup> studyGroups) {

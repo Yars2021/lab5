@@ -85,6 +85,7 @@ public class Add extends AbstractCommand implements CollectionInteracting, Datab
                         .addGroupAdmin(admin)
                         .toStudyGroup();
 
+                studyGroup.setId(id);
                 if (studyGroups.contains(studyGroup)) {
                     status.setStatus(Status.FAILED);
                     status.setOutput(null);
